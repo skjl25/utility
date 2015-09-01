@@ -157,7 +157,6 @@ public:
 			//		memcpy(&dctResultImage[i],&returnArray2[index],sizeof(double));
 			//		index++;
 			//	}
-
 			for(int i=0;i<arrayLength;i=i++)
 			{
 				memcpy(&dctResultImage[index],&returnArray2[i],sizeof(double));
