@@ -18,8 +18,6 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <fstream>
-//#include "load_image.h"
-//#include "viewer.h"
 #include <vector>
 #include "omp.h"
 
@@ -29,20 +27,9 @@
 
 using namespace std;
 
-//class wineTimer{
-//private:
-//	struct timeval tv;
-//	double startTime,elapsedTime;
-//
-//public:
-//	void startTimer();
-//	void getElapsedTime();
-//	void getElapsedTime(char* debugMsg);
-//};
 
 class utility {
 public:
-//	wineTimer timer;
 	ofstream myfile;
 	FILE* pFile;
 	struct timeval tv;

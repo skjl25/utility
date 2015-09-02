@@ -7,24 +7,6 @@
 
 #include "utility.h"
 
-//void wineTimer::startTimer(){
-////	gettimeofday(&tv,NULL);
-////	startTime=tv.tv_sec+(tv.tv_usec/1000000.0);
-//
-//}
-//
-//void wineTimer::getElapsedTime(){
-////	gettimeofday(&tv,NULL);
-////	elapsedTime=tv.tv_sec+(tv.tv_usec/1000000.0);
-////	printf("Elapsed time is %.0lf ms\n",1000.0*(elapsedTime-startTime));
-//}
-//
-//void wineTimer::getElapsedTime(char* debugMsg){
-//	gettimeofday(&tv,NULL);
-//	elapsedTime=tv.tv_sec+(tv.tv_usec/1000000.0);
-//	printf("%s Elapsed time is %.0lf ms\n",debugMsg,1000.0*(elapsedTime-startTime));
-//}
-
 utility::utility() {
 
 }
