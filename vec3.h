@@ -1,16 +1,8 @@
-#ifndef GFXVEC3_INCLUDED // -*- C++ -*-
+#ifndef GFXVEC3_INCLUDED
 #define GFXVEC3_INCLUDED
 #if !defined(__GNUC__)
 #  pragma once
 #endif
-
-/************************************************************************
-
-  3D Vector class
-
-  $Id: vec3.h 427 2004-09-27 04:45:31Z garland $
-
- ************************************************************************/
 
 #include "vec2.h"
 

@@ -1,16 +1,8 @@
-#ifndef GFXVEC4_INCLUDED // -*- C++ -*-
+#ifndef GFXVEC4_INCLUDED
 #define GFXVEC4_INCLUDED
 #if !defined(__GNUC__)
 #  pragma once
 #endif
-
-/************************************************************************
-
-  4D Vector class
-  
-  $Id: vec4.h 427 2004-09-27 04:45:31Z garland $
-
- ************************************************************************/
 
 #include "vec3.h"
 

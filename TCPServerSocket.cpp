@@ -36,7 +36,7 @@ void TCPServerSocket::PrepareConnection(int portNum)
 		perror("Listen");
 		exit(1);
 	}
-//	printf("\nTCPServer Waiting for client on port %d",portNum);
+	//	printf("\nTCPServer Waiting for client on port %d",portNum);
 	fflush(stdout);
 }
 
@@ -45,7 +45,7 @@ void TCPServerSocket::AcceptConnection()
 	sin_size = sizeof(struct sockaddr_in);
 
 	connected = accept(sock, (struct sockaddr *)&client_addr,&sin_size);
-//	printf("\n I got a connection from (%s , %d)\n", inet_ntoa(client_addr.sin_addr),ntohs(client_addr.sin_port));
+	//	printf("\n I got a connection from (%s , %d)\n", inet_ntoa(client_addr.sin_addr),ntohs(client_addr.sin_port));
 
 }
 
@@ -54,8 +54,8 @@ char* TCPServerSocket::ReceiveData(char *sendBuffer)
 	int size=1000;
 	int size1=1000000;
 	int flag=0;
-//	int sizeOfBuffer=153600;
-//	int sizeOfBuffer=307200;
+	//	int sizeOfBuffer=153600;
+	//	int sizeOfBuffer=307200;
 	int sizeOfBuffer=921600;
 	//char* returnArray=new char[sizeOfBuffer];
 
@@ -71,7 +71,7 @@ char* TCPServerSocket::ReceiveData(char *sendBuffer)
 		}
 		else if(bytes_recieved<=0)
 		{
-//			printf("TCPServerSocket::ReceiveData() Total Byte Received:  %d\n",totalByteReceived);
+			//			printf("TCPServerSocket::ReceiveData() Total Byte Received:  %d\n",totalByteReceived);
 			flag=1;
 		}
 	}
@@ -85,8 +85,8 @@ int TCPServerSocket::ReceiveData_cvideo(char *sendBuffer)
 	int size=1000;
 	int size1=1000000;
 	int flag=0;
-//	int sizeOfBuffer=153600;
-//	int sizeOfBuffer=307200;
+	//	int sizeOfBuffer=153600;
+	//	int sizeOfBuffer=307200;
 	int sizeOfBuffer=3000000;
 	//char* returnArray=new char[sizeOfBuffer];
 
@@ -102,7 +102,7 @@ int TCPServerSocket::ReceiveData_cvideo(char *sendBuffer)
 		}
 		else if(bytes_recieved<=0)
 		{
-//			printf("TCPServerSocket::ReceiveData() Total Byte Received:  %d\n",totalByteReceived);
+			//			printf("TCPServerSocket::ReceiveData() Total Byte Received:  %d\n",totalByteReceived);
 			flag=1;
 		}
 	}
@@ -118,8 +118,8 @@ char* TCPServerSocket::ReceiveData_auto(char *sendBuffer)
 	int size=1000;
 	int size1=1000000;
 	int flag=0;
-//	int sizeOfBuffer=153600;
-//	int sizeOfBuffer=307200;
+	//	int sizeOfBuffer=153600;
+	//	int sizeOfBuffer=307200;
 	int sizeOfBuffer=921601;
 	//char* returnArray=new char[sizeOfBuffer];
 
@@ -135,7 +135,7 @@ char* TCPServerSocket::ReceiveData_auto(char *sendBuffer)
 		}
 		else if(bytes_recieved<=0)
 		{
-//			printf("TCPServerSocket::ReceiveData() Total Byte Received:  %d\n",totalByteReceived);
+			//			printf("TCPServerSocket::ReceiveData() Total Byte Received:  %d\n",totalByteReceived);
 			flag=1;
 		}
 	}

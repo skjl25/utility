@@ -100,37 +100,10 @@ double** utility::convertChar1DToDouble2D(char* orgArray, int width,int height){
 	return resultArray;
 }
 
-//double* utility::convertChar1DToDouble1D(char* orgArray, int width,int height){
-//
-//	double* resultArray=new double[width*height];
-//
-//	int index=0;
-//	for(int i=0;i<width*height;i++)
-//	{
-//		uint8_t temp=(uint8_t)orgArray[i];
-//		resultArray[i]=temp*1.0;
-//		index++;
-//	}
-//	return resultArray;
-//}
-//
-//double* utility::convertShort1DToDouble1D(short* orgArray, int width,int height){
-//
-//	double* resultArray=new double[width*height];
-//
-//	int index=0;
-//	for(int i=0;i<width*height;i++)
-//	{
-//		int temp=orgArray[i];
-//		resultArray[i]=temp*1.0;
-//		index++;
-//	}
-//	return resultArray;
-//}
 
 char* utility::convertDoubleToUintChar1D(double* returnArray2, int arrayLength){
 	int index=0;
-	char* dctResultImage=new char[arrayLength*sizeof(short)];
+	char* tempArray=new char[arrayLength*sizeof(short)];
 
 	for(int i=0;i<arrayLength;i++)
 	{
@@ -142,11 +115,11 @@ char* utility::convertDoubleToUintChar1D(double* returnArray2, int arrayLength){
 			tempVal=(short)0;
 		else
 			tempVal=(short)returnArray2[i];
-		memcpy(&dctResultImage[index],&tempVal,sizeof(short));
+		memcpy(&tempArray[index],&tempVal,sizeof(short));
 
 		index++;
 	}
-	return dctResultImage;
+	return tempArray;
 }
 
 int* utility::convertCharToUintInt1D(char* orgArray, int arrayLength){
@@ -178,7 +151,7 @@ char* utility::convertDoubleToUintChar1D(double** returnArray2, int width1, int 
 	int index=0;
 	int Width=width1;
 	int Height=height1;
-	char* dctResultImage=new char[Width*Height*sizeof(short)];
+	char* tempArray=new char[Width*Height*sizeof(short)];
 
 	for(int j=0;j<Height;j++)
 	{
@@ -192,11 +165,11 @@ char* utility::convertDoubleToUintChar1D(double** returnArray2, int width1, int 
 				tempVal=(short)0;
 			else
 				tempVal=(short)returnArray2[i][j];
-			memcpy(&dctResultImage[index],&tempVal,sizeof(short));
+			memcpy(&tempArray[index],&tempVal,sizeof(short));
 			index++;
 		}
 	}
-	return dctResultImage;
+	return tempArray;
 }
 
 void utility::changeFileNameInOrderedSequence(char* returnFileName, int imageSequence, char* FolderLocation, char* FileHeaderName, char* extensionType)
@@ -228,13 +201,13 @@ void utility::changeFileNameInOrderedSequence(char* returnFileName, int imageSeq
 }
 void utility::initWritingFile(char* fileLocation)
 {
-//		pFile=fopen(fileLocation,"w");
+	//		pFile=fopen(fileLocation,"w");
 	myfile.open(fileLocation);
 }
 
 void utility::closeFile()
 {
-//		pFile=fopen(fileLocation,"w");
+	//		pFile=fopen(fileLocation,"w");
 	myfile.close();
 }
 
@@ -245,7 +218,7 @@ void utility::saveDatatoDatFile(char* integratedArray, int size, char* filelocat
 	initWritingFile(fileName);
 	for(int i=0;i<size;i++)
 	{
-//		writeToFile(integratedArray[i]);
+		//		writeToFile(integratedArray[i]);
 		fprintf (pFile, "%c",integratedArray[i]);
 	}
 	delete[] fileName;
@@ -255,3 +228,32 @@ void utility::saveDatatoDatFile(char* integratedArray, int size, char* filelocat
 
 utility::~utility() {
 }
+
+//double* utility::convertChar1DToDouble1D(char* orgArray, int width,int height){
+//
+//	double* resultArray=new double[width*height];
+//
+//	int index=0;
+//	for(int i=0;i<width*height;i++)
+//	{
+//		uint8_t temp=(uint8_t)orgArray[i];
+//		resultArray[i]=temp*1.0;
+//		index++;
+//	}
+//	return resultArray;
+//}
+//
+//double* utility::convertShort1DToDouble1D(short* orgArray, int width,int height){
+//
+//	double* resultArray=new double[width*height];
+//
+//	int index=0;
+//	for(int i=0;i<width*height;i++)
+//	{
+//		int temp=orgArray[i];
+//		resultArray[i]=temp*1.0;
+//		index++;
+//	}
+//	return resultArray;
+//}
+

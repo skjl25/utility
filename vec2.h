@@ -1,4 +1,4 @@
-#ifndef GFXVEC2_INCLUDED // -*- C++ -*-
+#ifndef GFXVEC2_INCLUDED
 #define GFXVEC2_INCLUDED
 #if !defined(__GNUC__)
 #  pragma once
@@ -6,13 +6,6 @@
 
 #include <iostream>
 
-/************************************************************************
-
-  2D Vector class
-
-  $Id: vec2.h 427 2004-09-27 04:45:31Z garland $
-
- ************************************************************************/
 namespace gfx
 {
 

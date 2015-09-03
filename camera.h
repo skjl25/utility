@@ -1,9 +1,3 @@
-/*
- * cvideo.h
- *
- *  Created on: Mar 21, 2012
- *      Author: root
- */
 
 #include <iostream>
 #include <stdio.h>

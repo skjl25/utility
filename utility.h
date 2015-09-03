@@ -71,6 +71,12 @@ public:
 	void initWritingFile(char* fileLocation);
 	void closeFile();
 
+	template <class T>
+	T Add(T a, T b) //C++ function template sample
+	{
+		return a+b;
+	}
+
 	template<class T> void writeToFile(T data)
 	{
 		myfile << data << endl;
@@ -119,7 +125,7 @@ public:
 		if(sizeof(T)==sizeof(int))
 		{
 			int index=0;
-			char* dctResultImage=new char[arrayLength*sizeof(int)];
+			char* tempArray=new char[arrayLength*sizeof(int)];
 
 			//	for(int i=0;i<arrayLength;i=i+sizeof(double))
 			//	{
@@ -129,15 +135,15 @@ public:
 
 			for(int i=0;i<arrayLength;i=i++)
 			{
-				memcpy(&dctResultImage[index],&returnArray2[i],sizeof(int));
+				memcpy(&tempArray[index],&returnArray2[i],sizeof(int));
 				index=index+sizeof(int);
 			}
-			return dctResultImage;
+			return tempArray;
 		}
 		if(sizeof(T)==sizeof(double))
 		{
 			int index=0;
-			char* dctResultImage=new char[arrayLength*sizeof(double)];
+			char* tempArray=new char[arrayLength*sizeof(double)];
 
 			//	for(int i=0;i<arrayLength;i=i+sizeof(double))
 			//	{
@@ -146,10 +152,10 @@ public:
 			//	}
 			for(int i=0;i<arrayLength;i=i++)
 			{
-				memcpy(&dctResultImage[index],&returnArray2[i],sizeof(double));
+				memcpy(&tempArray[index],&returnArray2[i],sizeof(double));
 				index=index+sizeof(double);
 			}
-			return dctResultImage;
+			return tempArray;
 		}
 	}
 
@@ -168,7 +174,7 @@ public:
 		if(sizeof(T)==sizeof(double))
 		{
 			int index=0;
-			char* dctResultImage=new char[arrayLength*sizeof(double)];
+			char* tempArray=new char[arrayLength*sizeof(double)];
 
 			//	for(int i=0;i<arrayLength;i=i+sizeof(double))
 			//	{
@@ -178,10 +184,10 @@ public:
 
 			for(int i=0;i<arrayLength;i=i++)
 			{
-				memcpy(&dctResultImage[index],&orgArray[i],sizeof(double));
+				memcpy(&tempArray[index],&orgArray[i],sizeof(double));
 				index=index+sizeof(double);
 			}
-			return dctResultImage;
+			return tempArray;
 		}
 	}
 	void saveDatatoDatFile(char* integratedArray, int size, char* filelocation);

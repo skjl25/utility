@@ -5,12 +5,6 @@
     #define ARRAY_SIZE(x) (sizeof((x)) / sizeof((x)[0]))
 #endif
 
-template <class T>
-T Add(T a, T b) //C++ function template sample
-{
-  return a+b;
-}
-
 TCPClientSocket::TCPClientSocket()
 {
 	sock=0;
@@ -58,13 +52,11 @@ double* tcpreadTextFile(char* fileName)
 	   }
 	   in.close();
 	   return returnArray;
-//	getchar();
 }
 
 
 void TCPClientSocket::SendData(char* sendBuffer,int sizeOfBuffer)
 {
-//	int dataSend=send(sock,sendBuffer,strlen(sendBuffer),0);
 	int dataSend=send(sock,sendBuffer,sizeOfBuffer,0);
 	printf("TCPClientSocket::SendData() total data transmitted %d  %d\n",dataSend);
 	close(sock);
