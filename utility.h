@@ -1,9 +1,3 @@
-/*
- * utility.h
- *
- *  Created on: Mar 22, 2012
- *      Author: Suk Kyu Lee
- */
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,6 +8,12 @@
 #include <fstream>
 #include <vector>
 #include "omp.h"
+#define WINDOWS 1
+#define LINUX 0
+
+#if WINDOWS
+#include "time.h"
+#endif
 
 #ifndef UTILITY_H_
 #define UTILITY_H_
@@ -25,13 +25,19 @@ public:
   ofstream myfile;
   FILE* pFile;
   //struct timeval tv;
-  double startTime, endTime, elapsedTime;
-
 #if LINUX
+  double startTime, endTime, elapsedTime;
+#endif
+
+#if WINDOWS
+  clock_t startTime;
+  clock_t endTime;
+  double elapsedTime;
+#endif
+
   void startTimer();
   void getElapsedTime();
   void getElapsedTime(char* debugMsg);
-#endif
 
   //	double** memset2DDoubleArray(int width, int height);
   //	int** memset2DIntArray(int width, int height);
