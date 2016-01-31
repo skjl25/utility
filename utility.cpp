@@ -1,4 +1,4 @@
-#include "../include/utility.h"
+#include "../inc/utility.h"
 #include "stdint.h"
 utility::utility() {
 }

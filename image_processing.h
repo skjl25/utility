@@ -1,12 +1,3 @@
-#ifndef IP_H_
-#define IP_H_
-
-//
-//extern "C" {
-//  #include<jpeglib.h>	//Link with: libjpeg.lib
-//  #include<jmorecfg.h>
-//}
-
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 #include <math.h>
@@ -77,5 +68,3 @@ public:
   int findAvg(IplImage* data);
   double findSdv(IplImage* data);
 };
-
-#endif

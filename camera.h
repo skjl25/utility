@@ -9,16 +9,12 @@
 #include "omp.h"
 #include "utility.h"
 #include "cvideo.h"
-#include "load_image.h"
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
-//#include "libfreenect_sync.h"
-//#include "libfreenect.h"
-#include "../include/image_processing.h"
-#include "../include/utility.h"
+#include <stdint.h>
+#include "../inc/image_processing.h"
+#include "../inc/utility.h"
 
-#ifndef CAMERA_H_
-#define CAMERA_H_
 #define PI 3.14159265
 
 using namespace std;
@@ -30,8 +26,8 @@ public:
   IplImage* grayImage;
   IplImage* intermediateImage;
   int cameraIndex;
-  unsigned int width;
-  unsigned int height;
+  uint32_t width;
+  uint32_t height;
   char* rawrgbImage;
   short* rawdepthImage;
   short* dataWithDepth;
@@ -42,15 +38,6 @@ public:
   int** realDepthVal;
   int* realDepthVal1D;
   int autoViewVal;
-
-  //	freenect_context *f_ctx;
-  //	freenect_device *f_dev;
-  //	freenect_video_format requested_format;
-  //	freenect_video_format current_format;
-  //	freenect_resolution requested_resolution;
-  //	freenect_resolution current_resolution;
-  //pthread_mutex_t depth_mutex;
-  //pthread_mutex_t video_mutex;
 
   Camera();
   Camera(int index);
@@ -77,5 +64,3 @@ public:
 
 private:
 };
-
-#endif /* CAMERA_H_ */
