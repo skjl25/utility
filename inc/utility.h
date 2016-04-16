@@ -1,3 +1,6 @@
+#ifndef UTILITY_H_
+#define UTILITY_H_
+
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,9 +17,6 @@
 #if WINDOWS
 #include "time.h"
 #endif
-
-#ifndef UTILITY_H_
-#define UTILITY_H_
 
 using namespace std;
 
@@ -41,24 +41,26 @@ public:
 
   //double array->Uint character array //255.0->255 double val is within the
   //unsigned char range
-  char* convertDoubleToUintChar1D(double** returnArray2, int width1, int height1);
+  char* convertDoubleToUintChar1D(double** returnArray2, int width1,
+                                  int height1);
   char* convertDoubleToUintChar1D(double* returnArray2, int arrayLength);
 
   //char array->Double array
   double** convertChar1DToDouble2D(char* orgArray, int width, int height);
 
   int* convertCharToUintInt1D(char* orgArray, int arrayLength);
-  void convertCharToUintInt1DExt(char* orgArray, int* convertArray, int arrayLength);
+  void convertCharToUintInt1DExt(char* orgArray, int* convertArray,
+                                 int arrayLength);
 
   //Getting the avg and standard deviation of set of arrays in various forms
-  double getMean(double** doubleOrgImage, int Width, int Height);
-  double getMean(double* doubleOrgImage, int Width, int Height);
-  double getStd(double** doubleOrgImage, int Width, int Height);
-  double getStd(double* doubleOrgImage, int Width, int Height);
+  double getMean(double** org_img, int width, int height);
+  double getMean(double* org_img, int width, int height);
+  double getStd(double** org_img, int width, int height);
+  double getStd(double* org_img, int width, int height);
 
-  void changeFileNameInOrderedSequence(char* returnFileName, int imageSequence,
-                                       char* FolderLocation, char* FileHeaderName,
-                                       char* extensionType);
+  void changeFileNameInOrderedSequence(char* dst_file_name, int img_seq,
+                                       char* loc_folder, char* name_file_header,
+                                       char* type_ext);
 
   //Writing File functions
   void initWritingFile(char* fileLocation);

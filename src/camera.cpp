@@ -4,7 +4,7 @@ using namespace std;
 #define gwidth 640
 #define gheight 480
 
-ImageProcessing ip;
+ImageTools ip;
 
 Camera::Camera() {
   width = gwidth;

@@ -38,31 +38,31 @@ void utility::getElapsedTime(char* debug_msg) {
 }
 #endif
 
-double utility::getMean(double** doubleOrgImage, int width, int height) {
+double utility::getMean(double** org_img, int width, int height) {
   double mean = 0;
   for (int i = 0; i < width; i++) {
     for (int j = 0; j < height; j++) {
-      mean = mean + doubleOrgImage[i][j];
+      mean = mean + org_img[i][j];
     }
   }
   return mean / (width*height);
 }
 
-double utility::getMean(double* doubleOrgImage, int width, int height) {
+double utility::getMean(double* org_img, int width, int height) {
   double mean = 0;
   for (int i = 0; i < width*height; i++) {
-    mean = mean + doubleOrgImage[i];
+    mean = mean + org_img[i];
   }
   return mean / (width*height);
 }
 
-double utility::getStd(double** doubleOrgImage, int width, int height) {
+double utility::getStd(double** org_img, int width, int height) {
   double mean = 0;
   double sum = 0;
   for (int i = 0; i < width; i++) {
     for (int j = 0; j < height; j++) {
-      mean = mean + doubleOrgImage[i][j];
-      sum = sum + (doubleOrgImage[i][j])*(doubleOrgImage[i][j]);
+      mean = mean + org_img[i][j];
+      sum = sum + (org_img[i][j])*(org_img[i][j]);
     }
   }
 
@@ -72,12 +72,12 @@ double utility::getStd(double** doubleOrgImage, int width, int height) {
   return sum;
 }
 
-double utility::getStd(double* doubleOrgImage, int width, int height) {
+double utility::getStd(double* org_img, int width, int height) {
   double mean = 0;
   double sum = 0;
   for (int i = 0; i < width*height; i++) {
-    mean = mean + doubleOrgImage[i];
-    sum = sum + (doubleOrgImage[i])*(doubleOrgImage[i]);
+    mean = mean + org_img[i];
+    sum = sum + (org_img[i])*(org_img[i]);
   }
 
   mean = mean / (width*height);
@@ -86,7 +86,8 @@ double utility::getStd(double* doubleOrgImage, int width, int height) {
   return sum;
 }
 
-double** utility::convertChar1DToDouble2D(char* orgArray, int width, int height) {
+double** utility::convertChar1DToDouble2D(char* orgArray, int width,
+                                          int height) {
   double** resultArray = memset2DArray<double>(width, height);
 
   int index = 0;
@@ -130,7 +131,8 @@ int* utility::convertCharToUintInt1D(char* orgArray, int arrayLength) {
   return returnArray;
 }
 
-void utility::convertCharToUintInt1DExt(char* orgArray, int* convertArray, int arrayLength) {
+void utility::convertCharToUintInt1DExt(char* orgArray, int* convertArray,
+                                        int arrayLength) {
   //	int* returnArray=new int[arrayLength];
   //	int* returnArray=(int*)malloc(sizeof(int)*arrayLength);
   for (int i = 0; i < arrayLength; i++) {
@@ -140,7 +142,8 @@ void utility::convertCharToUintInt1DExt(char* orgArray, int* convertArray, int a
   //	return returnArray;
 }
 
-char* utility::convertDoubleToUintChar1D(double** returnArray2, int width, int height) {
+char* utility::convertDoubleToUintChar1D(double** returnArray2, int width,
+                                         int height) {
   int index = 0;
   int Width = width;
   int Height = height;
@@ -163,24 +166,27 @@ char* utility::convertDoubleToUintChar1D(double** returnArray2, int width, int h
   return tempArray;
 }
 
-void utility::changeFileNameInOrderedSequence(char* returnFileName, int imageSequence, char* FolderLocation, char* FileHeaderName, char* extensionType) {
+void utility::changeFileNameInOrderedSequence(char* dst_file_name, int img_seq,
+                                              char* loc_folder,
+                                              char* name_file_header,
+                                              char* type_ext) {
   char* FileName = new char[100];
-  if (imageSequence < 10) {
-    sprintf(FileName, "%s_0000%d", FileHeaderName, imageSequence);
+  if (img_seq < 10) {
+    sprintf(FileName, "%s_0000%d", name_file_header, img_seq);
   }
-  if (imageSequence >= 10 && imageSequence < 100) {
-    sprintf(FileName, "%s_000%d", FileHeaderName, imageSequence);
+  if (img_seq >= 10 && img_seq < 100) {
+    sprintf(FileName, "%s_000%d", name_file_header, img_seq);
   }
-  if (imageSequence >= 100 && imageSequence < 1000) {
-    sprintf(FileName, "%s_00%d", FileHeaderName, imageSequence);
+  if (img_seq >= 100 && img_seq < 1000) {
+    sprintf(FileName, "%s_00%d", name_file_header, img_seq);
   }
-  if (imageSequence >= 1000 && imageSequence < 10000) {
-    sprintf(FileName, "%s_0%d", FileHeaderName, imageSequence);
+  if (img_seq >= 1000 && img_seq < 10000) {
+    sprintf(FileName, "%s_0%d", name_file_header, img_seq);
   }
-  if (imageSequence >= 10000 && imageSequence < 100000) {
-    sprintf(FileName, "%s_%d", FileHeaderName, imageSequence);
+  if (img_seq >= 10000 && img_seq < 100000) {
+    sprintf(FileName, "%s_%d", name_file_header, img_seq);
   }
-  sprintf(returnFileName, "%s%s.%s", FolderLocation, FileName, extensionType);
+  sprintf(dst_file_name, "%s%s.%s", loc_folder, FileName, type_ext);
   delete[] FileName;
 }
 void utility::initWritingFile(char* fileLocation) {
@@ -193,7 +199,8 @@ void utility::closeFile() {
   myfile.close();
 }
 
-void utility::saveDatatoDatFile(char* integratedArray, int size, char* filelocation) {
+void utility::saveDatatoDatFile(char* integratedArray, int size,
+                                char* filelocation) {
   char* fileName = new char[100];
   sprintf(fileName, "%s.dat", filelocation);
   initWritingFile(fileName);

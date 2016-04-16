@@ -7,6 +7,7 @@
 #include <vector>
 #include "omp.h"
 #include "utility.h"
+#include "typedef.h"
 
 #ifndef M3DVC_H_
 #define M3DVC_H_
@@ -93,8 +94,8 @@ public:
   virtual ~m3dvc();
 
 private:
-  unsigned int width;
-  unsigned int height;
+  uint32_t width;
+  uint32_t height;
 };
 
 #endif /* CVIDEO_H_ */

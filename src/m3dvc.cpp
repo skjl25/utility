@@ -2,12 +2,6 @@
 #include "stdint.h"
 using namespace std;
 
-#define gwidth 640
-#define gheight 480
-
-//#define gwidth 512
-//#define gheight 512
-
 m3dvc::m3dvc(int cameraWidth, int cameraHeight) {
   setImageHeight(cameraHeight);
   setImageWidth(cameraWidth);
@@ -142,7 +136,7 @@ void m3dvc::M3DVC_visible_encode(int* dwtOrgImage) {
 
   //merging high and low freq into one
   int j = 0;
-  for (int i = 0; i < width*height; i++) {
+  for (uint32_t i = 0; i < width*height; i++) {
     if (i < (width*height) / 2) {
       encoded_visible_data[i] = lowPassFilter[i];
     } else {
@@ -175,7 +169,7 @@ void m3dvc::M3DVC_visible_encode(double* dwtOrgImage) {
 
   //merging high and low freq into one
   int j = 0;
-  for (int i = 0; i < width*height; i++) {
+  for (uint32_t i = 0; i < width*height; i++) {
     if (i < (width*height) / 2) {
       encoded_visible_data[i] = lowPassFilter[i];
     } else {
@@ -266,7 +260,7 @@ void m3dvc::M3DVC_visible_encode(double* dwtOrgImage) {
 void m3dvc::extractVisibleDepthData(char* receivedData) {
   int indexT = 0;
   int indexT2 = 0;
-  for (int i = 0; i < (width*height) / 2; i++) {
+  for (uint32_t i = 0; i < (width*height) / 2; i++) {
     uint8_t temp = (uint8_t)receivedData[i];
     if (i < (width*height) / 4) {
       decoded_reduced_visible_data[indexT] = temp;
@@ -281,7 +275,7 @@ void m3dvc::extractVisibleDepthData(char* receivedData) {
 void m3dvc::getReplicateBlocks(int compressedIndicator) {
   //	int* oneMergeFilter=new int[Width*Height];
 
-  for (int i = 0; i < (width*height / compressedIndicator); i++) {
+  for (uint32_t i = 0; i < (width*height / compressedIndicator); i++) {
     int indexY = i / (width / 2);
     int indexX = i % (width / 2);
 
@@ -299,7 +293,7 @@ void m3dvc::getReplicateBlocks(int compressedIndicator) {
 void m3dvc::M3DVC_visible_decode() {
   //	int* dwtRecoveredImage=new int[Width*Height];
 
-  for (int i = 0; i < (width*height) / 2; i++) {
+  for (uint32_t i = 0; i < (width*height) / 2; i++) {
     double recoverVal1 = decoded_visible_data[i] + (decoded_visible_data[i + (width*height / 2)]);
     double recoverVal2 = decoded_visible_data[i] - (decoded_visible_data[i + (width*height / 2)]);
     reconstructed_visible_data[i * 2] = (int)recoverVal1;
@@ -340,7 +334,7 @@ int* m3dvc::getDWTBlock(int* oneMergeFilter, int Width, int Height, int compress
 
 void m3dvc::M3DVC_depth_decode_2() {
   int expValIndex = 0;
-  for (int i = 0; i < (height*width) / 4; i++) {
+  for (uint32_t i = 0; i < (height*width) / 4; i++) {
     int indexY = expValIndex / (width);
     int indexX = expValIndex % (width);
     if (indexY % 2 != 0) {
@@ -363,7 +357,7 @@ void m3dvc::M3DVC_depth_encode_2(int* realDepthVal1D) {
 
   int returnValIndex = 0;
 
-  for (int i = 0; i < width*height; i = i + 2) {
+  for (uint32_t i = 0; i < width*height; i = i + 2) {
     int indexY = i / (width);
     int indexX = i % (width);
     if (indexY % 2 != 0) {
