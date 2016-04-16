@@ -1,20 +1,20 @@
 #include "../inc/image_processing.h"
 
-void ImageProcessing::saveSequenceOfIplImages(char* filelocation, int sequenceNumber, IplImage* foregroundImg) {
+void ImageTools::saveSequenceOfIplImages(char* filelocation, int sequenceNumber, IplImage* foregroundImg) {
   char* fileName2 = new char[100];
   sprintf(fileName2, "%s_%d.pgm", filelocation, sequenceNumber);
   cvSaveImage(fileName2, foregroundImg);
   delete[] fileName2;
 }
 
-void ImageProcessing::convertToGrayScale(char* origImg, char* grayG2ImgChar, int width, int height) {
+void ImageTools::convertToGrayScale(char* origImg, char* grayG2ImgChar, int width, int height) {
   for (int i = 0; i < width*height; i++) {
     int location = 3 * i + 1;
     grayG2ImgChar[i] = origImg[location];
   }
 }
 
-IplImage* ImageProcessing::convertColorArrayToIplImage(char* orgArray, int height, int width) {
+IplImage* ImageTools::convertColorArrayToIplImage(char* orgArray, int height, int width) {
   IplImage* returnImg = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 3);
   int index = height*width;
   for (int i = 0; i < height; i++) {
@@ -33,7 +33,7 @@ IplImage* ImageProcessing::convertColorArrayToIplImage(char* orgArray, int heigh
   return returnImg;
 }
 
-IplImage* ImageProcessing::convertColorArrayToIplImage_ext(char* orgArray, int height, int width) {
+IplImage* ImageTools::convertColorArrayToIplImage_ext(char* orgArray, int height, int width) {
   IplImage* returnImg = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 3);
   int index = 0;
   for (int i = height - 1; i = 0; i--) {
@@ -52,7 +52,7 @@ IplImage* ImageProcessing::convertColorArrayToIplImage_ext(char* orgArray, int h
   return returnImg;
 }
 
-void ImageProcessing::convertIplImageToCharArray(char* returnArray, IplImage* orgImage, int height, int width) {
+void ImageTools::convertIplImageToCharArray(char* returnArray, IplImage* orgImage, int height, int width) {
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
       returnArray[i*width + j] = ((uchar*)(orgImage->imageData + i*orgImage->widthStep))[j];
@@ -61,7 +61,7 @@ void ImageProcessing::convertIplImageToCharArray(char* returnArray, IplImage* or
   //	return returnArray;
 }
 
-void ImageProcessing::convertColorIplImageToCharArray(char* returnArray, IplImage* orgImage, int height, int width) {
+void ImageTools::convertColorIplImageToCharArray(char* returnArray, IplImage* orgImage, int height, int width) {
   int index = 0;
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
@@ -78,7 +78,7 @@ void ImageProcessing::convertColorIplImageToCharArray(char* returnArray, IplImag
   }
 }
 
-double ImageProcessing::findSdv(IplImage* data) {
+double ImageTools::findSdv(IplImage* data) {
   double sum = 0;
   for (int i = 0; i < data->height; i++) {
     for (int j = 0; j < data->width; j++) {
@@ -97,7 +97,7 @@ double ImageProcessing::findSdv(IplImage* data) {
   return threshSdv;
 }
 
-int ImageProcessing::findAvg(IplImage* data) {
+int ImageTools::findAvg(IplImage* data) {
   int sum = 0;
   for (int i = 0; i < data->height; i++) {
     for (int j = 0; j < data->width; j++) {
@@ -109,7 +109,7 @@ int ImageProcessing::findAvg(IplImage* data) {
   return threshMean;
 }
 
-int ImageProcessing::getEuclideanDistance(int x1, int x2, int y1, int y2) {
+int ImageTools::getEuclideanDistance(int x1, int x2, int y1, int y2) {
   int returnVal;
 
   int xSquare = pow(double(x1 - x2), 2);
@@ -119,7 +119,7 @@ int ImageProcessing::getEuclideanDistance(int x1, int x2, int y1, int y2) {
   return returnVal;
 }
 
-IplImage* ImageProcessing::getSynthesizedImage_gray(IplImage* leftIm, IplImage* rightIm, int* dispMapMat, double alpha) {
+IplImage* ImageTools::getSynthesizedImage_gray(IplImage* leftIm, IplImage* rightIm, int* dispMapMat, double alpha) {
   int dispVal = 0;
   IplImage *iirImage = cvCreateImage(cvSize(rightIm->width, rightIm->height), IPL_DEPTH_8U, 1);
   IplImage *iImage = cvCreateImage(cvSize(rightIm->width, rightIm->height), IPL_DEPTH_8U, 1);
@@ -184,7 +184,7 @@ IplImage* ImageProcessing::getSynthesizedImage_gray(IplImage* leftIm, IplImage* 
   return iImage;
 }
 
-IplImage* ImageProcessing::getSynthesizedImage_rgb(IplImage* leftIm, IplImage* rightIm, int** dispMapMat, double alpha) {
+IplImage* ImageTools::getSynthesizedImage_rgb(IplImage* leftIm, IplImage* rightIm, int** dispMapMat, double alpha) {
   IplImage* returnVal;
   int dispVal = 0;
   IplImage *iirCImage = cvCreateImage(cvSize(rightIm->width, rightIm->height), IPL_DEPTH_8U, 3);
@@ -259,7 +259,7 @@ IplImage* ImageProcessing::getSynthesizedImage_rgb(IplImage* leftIm, IplImage* r
   return iCImage;
 }
 
-//void ImageProcessing::save_pgm(string filename, char* data, unsigned int width, unsigned int height)
+//void ImageTools::save_pgm(string filename, char* data, unsigned int width, unsigned int height)
 //{
 //	FILE* fid = fopen(filename.c_str(), "w");
 //	fprintf(fid,"P5\n%u %u\n255\n", width, height);
@@ -267,7 +267,7 @@ IplImage* ImageProcessing::getSynthesizedImage_rgb(IplImage* leftIm, IplImage* r
 //	fclose(fid);
 //}
 
-char* ImageProcessing::load_pgm(string filename, unsigned int& width, unsigned int& height) {
+char* ImageTools::load_pgm(string filename, unsigned int& width, unsigned int& height) {
   char * data;
   char tmpc;
   string type;
@@ -300,14 +300,14 @@ char* ImageProcessing::load_pgm(string filename, unsigned int& width, unsigned i
   return data;
 }
 
-void ImageProcessing::save_ppm_unsigned(string filename, unsigned char* data, unsigned int width, unsigned int height) {
+void ImageTools::save_ppm_unsigned(string filename, unsigned char* data, unsigned int width, unsigned int height) {
   FILE* fid = fopen(filename.c_str(), "w");
   fprintf(fid, "P6\n%u %u\n255\n", width, height);
   fwrite(data, 1, width*height * 3, fid);
   fclose(fid);
 }
 
-char* ImageProcessing::load_ppm(string filename, unsigned int& width, unsigned int& height) {
+char* ImageTools::load_ppm(string filename, unsigned int& width, unsigned int& height) {
   char * data;
   char tmpc;
   string type;
@@ -363,16 +363,16 @@ char* ImageProcessing::load_ppm(string filename, unsigned int& width, unsigned i
   return data;
 }
 
-void ImageProcessing::save_ppm(string filename, char* data, unsigned int width, unsigned int height) {
+void ImageTools::save_ppm(string filename, char* data, unsigned int width, unsigned int height) {
   FILE* fid = fopen(filename.c_str(), "w");
   fprintf(fid, "P6\n%u %u\n255\n", width, height);
   fwrite(data, 1, width*height * 3, fid);
   fclose(fid);
 }
 
-void ImageProcessing::extractVideoSequenceToImg(char* movieFileLocation, char* saveFileLocation, char* saveFileType) {
-  char fileName[200];
-  //	sprintf (fileName, "%s.avi",movieFileLocation);
+void ImageTools::extractVideoSequenceToImg(char* movieFileLocation, char* saveFileLocation, char* saveFileType) {
+  //char fileName[200];
+  //sprintf(fileName, "%s.avi", movieFileLocation);
   printf("%s\n", movieFileLocation);
 
   CvCapture* capture = 0;
@@ -400,3 +400,27 @@ void ImageProcessing::extractVideoSequenceToImg(char* movieFileLocation, char* s
     counter++;
   }
 }
+//Calculates image PSNR value
+double_t ImageTools::get_image_psnr(uint8_t *frame1, uint8_t *frame2, uint32_t x, uint32_t y) {
+  double_t MSE = 0.0;
+  double_t MSEtemp = 0.0;
+  double_t psnr = 0.0;
+  uint32_t index;
+
+  //Calculate MSE
+  for (index = 0; index < x*y; index++) {
+    MSEtemp = abs(frame1[index] - frame2[index]);
+    MSE += MSEtemp*MSEtemp;
+  }
+  MSE /= x*y;
+
+  //Avoid division by zero
+  if (MSE == 0) return 99.0;
+
+  //The PSNR
+  psnr = 10 * log10(MAX_1 / MSE);
+
+  //Thats it.
+  return psnr;
+}
+

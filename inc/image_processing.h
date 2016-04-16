@@ -1,17 +1,18 @@
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 #include <math.h>
-//#include <tiffio.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <stdio.h>
 #include <stdlib.h>
+#include "../inc/typedef.h"
+#define MAX_1                   (255*255)
 
 using namespace std;
 
-class ImageProcessing {
+class ImageTools {
 public:
   void saveSequenceOfIplImages(char* filelocation, int sequenceNumber, IplImage* foregroundImg);
 
@@ -33,6 +34,7 @@ public:
   char* load_ppm(string, unsigned int&, unsigned int&);
   void save_ppm_unsigned(string filename, unsigned char* data, unsigned int width, unsigned int height);
   void extractVideoSequenceToImg(char* movieFileLocation, char* saveFileLocation, char* saveFileType);
+  double_t get_image_psnr(uint8_t *frame1, uint8_t *frame2, uint32_t x, uint32_t y);
 
   template<class T> IplImage* convertGrayArrayToIplImage(T* orgArray, int width, int height) {
     IplImage* returnImg = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 1);
