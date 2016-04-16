@@ -14,12 +14,12 @@
 #include <stdint.h>
 #include "../inc/image_processing.h"
 #include "../inc/utility.h"
+#include "../inc/global.h"
 
-#define PI 3.14159265
 
 using namespace std;
 
-class Camera{
+class Camera {
 public:
   IplImage* rgbImage;
   IplImage* depthImage;

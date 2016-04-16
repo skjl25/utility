@@ -19,16 +19,14 @@ Camera::Camera() {
   dataWithDepth = (short*)malloc(sizeof(short)*height*width);
 
   realDepthVal = new int*[height];
-  for (int i = 0; i < (int)height; i++)
-  {
+  for (int i = 0; i < (int)height; i++) {
     realDepthVal[i] = new int[width];
   }
 
   realDepthVal1D = new int[height*width];
 }
 Camera::Camera(int index) {
-  if (index == 0)
-  {
+  if (index == 0) {
     //		initKinect();
   }
   width = gwidth;
@@ -45,8 +43,7 @@ Camera::Camera(int index) {
   dataWithDepth = (short*)malloc(sizeof(short)*height*width);
 
   realDepthVal = new int*[height];
-  for (int i = 0; i < (int)height; i++)
-  {
+  for (int i = 0; i < (int)height; i++) {
     realDepthVal[i] = new int[width];
   }
 
@@ -95,15 +92,13 @@ void Camera::diffDepthTest(int* decodedBlock) {
   int widthIndex = 0;
   int heightIndex = 0;
   int diffCount = 0;
-  for (int k = 0; k < (int)(height*width); k++)
-  {
+  for (int k = 0; k < (int)(height*width); k++) {
     //						printf("%f\n",0.1236 * tan((double)data[0].rawdepthImage[i]/ 2842.5 + 1.1863));
     double raw_depth = (double)realDepthVal1D[k];
     double raw_depth1 = (double)decodedBlock[k];
     widthIndex = k%width;
 
-    if (raw_depth < 2047)
-    {
+    if (raw_depth < 2047) {
       //					fprintf(pFile,"%f,",(1.0 / (raw_depth * -0.0030711016 + 3.3309495161))*10);
       //			printf("%f,",(1.0 / (raw_depth * -0.0030711016 + 3.3309495161))*10);
       //
@@ -112,25 +107,21 @@ void Camera::diffDepthTest(int* decodedBlock) {
       int temp1 = (int)((1.0 / (raw_depth * -0.0030711016 + 3.3309495161))) * 10;
       int temp2 = (int)((1.0 / (raw_depth1 * -0.0030711016 + 3.3309495161))) * 10;
 
-      if ((temp1 - temp2) != 0)
-      {
+      if ((temp1 - temp2) != 0) {
         diffCount++;
       }
-    } else
-    {
+    } else {
       raw_depth = 0;
       raw_depth1 = 0;
       int temp1 = (int)((1.0 / (raw_depth * -0.0030711016 + 3.3309495161))) * 10;
       int temp2 = (int)((1.0 / (raw_depth1 * -0.0030711016 + 3.3309495161))) * 10;
 
-      if ((temp1 - temp2) != 0)
-      {
+      if ((temp1 - temp2) != 0) {
         diffCount++;
       }
     }
 
-    if (k%width == 0 && k != 0)
-    {
+    if (k%width == 0 && k != 0) {
       //					fprintf(pFile,"\n");
       //			printf("\n");
       heightIndex++;
@@ -143,20 +134,16 @@ void Camera::diffDepthTest(int* decodedBlock) {
 void Camera::writeDispValToFile(Camera* data) {
   FILE * pFile;
   pFile = fopen("/home/sklee25/Desktop/dVal.txt", "w");
-  for (int i = 0; i < (int)(data->height*data->width); i++)
-  {
+  for (int i = 0; i < (int)(data->height*data->width); i++) {
     //						printf("%f\n",0.1236 * tan((double)data[0].rawdepthImage[i]/ 2842.5 + 1.1863));
     double raw_depth = (double)data->rawdepthImage[i];
-    if (i%data[0].width == 0 && i != 0)
-    {
+    if (i%data[0].width == 0 && i != 0) {
       fprintf(pFile, "\n");
     }
 
-    if (raw_depth < 2047)
-    {
+    if (raw_depth < 2047) {
       fprintf(pFile, "%f,", (1.0 / (raw_depth * -0.0030711016 + 3.3309495161)) * 10);
-    } else
-    {
+    } else {
       raw_depth = 0;
       fprintf(pFile, "%f,", (1.0 / (raw_depth * -0.0030711016 + 3.3309495161)) * 10);
     }
@@ -168,27 +155,23 @@ void Camera::storeDispVal_block_method_2(int* decodedBlock) {
   int widthIndex = 0;
   int heightIndex = 0;
   double valToSave = 0;
-  for (int k = 0; k < (int)(height*width); k++)
-  {
+  for (int k = 0; k < (int)(height*width); k++) {
     //						printf("%f\n",0.1236 * tan((double)data[0].rawdepthImage[i]/ 2842.5 + 1.1863));
     double raw_depth = (double)decodedBlock[k];
     widthIndex = k%width;
 
-    if (raw_depth < 2047)
-    {
+    if (raw_depth < 2047) {
       //					fprintf(pFile,"%f,",(1.0 / (raw_depth * -0.0030711016 + 3.3309495161))*10);
       //						printf("%f,",(1.0 / (raw_depth * -0.0030711016 + 3.3309495161))*10);
       valToSave = (1.0 / (raw_depth * -0.0030711016 + 3.3309495161)) * 10;
       realDepthVal[heightIndex][widthIndex] = (int)valToSave;
-    } else
-    {
+    } else {
       raw_depth = 0;
       valToSave = (1.0 / (raw_depth * -0.0030711016 + 3.3309495161)) * 10;
       realDepthVal[heightIndex][widthIndex] = (int)valToSave;
     }
 
-    if (k%width == 0 && k != 0)
-    {
+    if (k%width == 0 && k != 0) {
       //					fprintf(pFile,"\n");
       //						printf("\n");
       heightIndex++;
@@ -200,26 +183,22 @@ void Camera::getRealDepthValue() {
   int widthIndex = 0;
   int heightIndex = 0;
   double valToSave = 0;
-  for (int k = 0; k < (int)(height*width); k++)
-  {
+  for (int k = 0; k < (int)(height*width); k++) {
     //						printf("%f\n",0.1236 * tan((double)data[0].rawdepthImage[i]/ 2842.5 + 1.1863));
     double raw_depth = (double)rawdepthImage[k];
 
-    if (raw_depth < 2047)
-    {
+    if (raw_depth < 2047) {
       //					fprintf(pFile,"%f,",(1.0 / (raw_depth * -0.0030711016 + 3.3309495161))*10);
       //			printf("%f,",(1.0 / (raw_depth * -0.0030711016 + 3.3309495161))*10);
       valToSave = (1.0 / (raw_depth * -0.0030711016 + 3.3309495161)) * 10;
       realDepthVal1D[k] = (int)valToSave;
-    } else
-    {
+    } else {
       raw_depth = 0;
       valToSave = (1.0 / (raw_depth * -0.0030711016 + 3.3309495161)) * 10;
       realDepthVal1D[k] = (int)valToSave;
     }
 
-    if (k%width == 0 && k != 0)
-    {
+    if (k%width == 0 && k != 0) {
       //					fprintf(pFile,"\n");
       //			printf("\n");
       heightIndex++;
@@ -227,8 +206,7 @@ void Camera::getRealDepthValue() {
   }
 }
 
-Camera::~Camera() {
-}
+Camera::~Camera() {}
 
 //void initKinect()
 //{

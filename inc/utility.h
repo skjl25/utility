@@ -26,21 +26,18 @@ public:
   FILE* pFile;
   //struct timeval tv;
 #if LINUX
-  double startTime, endTime, elapsedTime;
+  double start_time, end_time, elapsed_time;
 #endif
 
 #if WINDOWS
-  clock_t startTime;
-  clock_t endTime;
-  double elapsedTime;
+  clock_t start_time;
+  clock_t end_time;
+  double elapsed_time;
 #endif
 
   void startTimer();
   void getElapsedTime();
   void getElapsedTime(char* debugMsg);
-
-  //	double** memset2DDoubleArray(int width, int height);
-  //	int** memset2DIntArray(int width, int height);
 
   //double array->Uint character array //255.0->255 double val is within the
   //unsigned char range
@@ -49,8 +46,6 @@ public:
 
   //char array->Double array
   double** convertChar1DToDouble2D(char* orgArray, int width, int height);
-  //	double* convertChar1DToDouble1D(char* orgArray, int width,int height);
-  //	double* convertShort1DToDouble1D(short* orgArray, int width,int height);
 
   int* convertCharToUintInt1D(char* orgArray, int arrayLength);
   void convertCharToUintInt1DExt(char* orgArray, int* convertArray, int arrayLength);
@@ -61,15 +56,17 @@ public:
   double getStd(double** doubleOrgImage, int Width, int Height);
   double getStd(double* doubleOrgImage, int Width, int Height);
 
-  void changeFileNameInOrderedSequence(char* returnFileName, int imageSequence, char* FolderLocation, char* FileHeaderName, char* extensionType);
+  void changeFileNameInOrderedSequence(char* returnFileName, int imageSequence,
+                                       char* FolderLocation, char* FileHeaderName,
+                                       char* extensionType);
 
   //Writing File functions
   void initWritingFile(char* fileLocation);
   void closeFile();
 
+  //C++ function template sample
   template <class T>
-  T Add(T a, T b) //C++ function template sample
-  {
+  T Add(T a, T b) {
     return a + b;
   }
 
@@ -79,31 +76,27 @@ public:
 
   template<class T> T** memset2DArray(int width, int height) {
     T** resultArray = new T*[width];
-    for (int i = 0; i < width; i++)
-    {
+    for (int i = 0; i < width; i++) {
       resultArray[i] = new T[height];
     }
     return resultArray;
   }
 
-  template<class T> double* convertArrayToDouble1D(T* orgArray, int width, int height) {
+  template<class T> double* convertArrayToDouble1D(T* orgArray, int width,
+                                                   int height) {
     double* resultArray = new double[width*height];
 
-    if (sizeof(T) == sizeof(char))
-    {
+    if (sizeof(T) == sizeof(char)) {
       int index = 0;
-      for (int i = 0; i < width*height; i++)
-      {
+      for (int i = 0; i < width*height; i++) {
         uint8_t temp = (uint8_t)orgArray[i];
         resultArray[i] = temp*1.0;
         index++;
       }
     }
-    if (sizeof(T) == sizeof(short))
-    {
+    if (sizeof(T) == sizeof(short)) {
       int index = 0;
-      for (int i = 0; i < width*height; i++)
-      {
+      for (int i = 0; i < width*height; i++) {
         int temp = orgArray[i];
         resultArray[i] = temp*1.0;
         index++;
@@ -112,37 +105,23 @@ public:
     return resultArray;
   }
 
-  template<class T> char* convertVectorToChar1D(vector<T> returnArray2, int arrayLength) {
-    if (sizeof(T) == sizeof(int))
-    {
+  template<class T> char* convertVectorToChar1D(vector<T> returnArray2,
+                                                int arrayLength) {
+    if (sizeof(T) == sizeof(int)) {
       int index = 0;
       char* tempArray = new char[arrayLength*sizeof(int)];
 
-      //	for(int i=0;i<arrayLength;i=i+sizeof(double))
-      //	{
-      //		memcpy(&dctResultImage[i],&returnArray2[index],sizeof(double));
-      //		index++;
-      //	}
-
-      for (int i = 0; i < arrayLength; i = i++)
-      {
+      for (int i = 0; i < arrayLength; i = i++) {
         memcpy(&tempArray[index], &returnArray2[i], sizeof(int));
         index = index + sizeof(int);
       }
       return tempArray;
     }
-    if (sizeof(T) == sizeof(double))
-    {
+    if (sizeof(T) == sizeof(double)) {
       int index = 0;
       char* tempArray = new char[arrayLength*sizeof(double)];
 
-      //	for(int i=0;i<arrayLength;i=i+sizeof(double))
-      //	{
-      //		memcpy(&dctResultImage[i],&returnArray2[index],sizeof(double));
-      //		index++;
-      //	}
-      for (int i = 0; i < arrayLength; i = i++)
-      {
+      for (int i = 0; i < arrayLength; i = i++) {
         memcpy(&tempArray[index], &returnArray2[i], sizeof(double));
         index = index + sizeof(double);
       }
@@ -151,28 +130,18 @@ public:
   }
 
   template<class T> char* convertArrayToChar1D(T* orgArray, int arrayLength) {
-    if (sizeof(T) == sizeof(int))
-    {
+    if (sizeof(T) == sizeof(int)) {
       char* returnArray = new char[arrayLength];
-      for (int i = 0; i < arrayLength; i++)
-      {
+      for (int i = 0; i < arrayLength; i++) {
         returnArray[i] = (uint8_t)orgArray[i];
       }
       return returnArray;
     }
-    if (sizeof(T) == sizeof(double))
-    {
+    if (sizeof(T) == sizeof(double)) {
       int index = 0;
       char* tempArray = new char[arrayLength*sizeof(double)];
 
-      //	for(int i=0;i<arrayLength;i=i+sizeof(double))
-      //	{
-      //		memcpy(&dctResultImage[i],&returnArray2[index],sizeof(double));
-      //		index++;
-      //	}
-
-      for (int i = 0; i < arrayLength; i = i++)
-      {
+      for (int i = 0; i < arrayLength; i = i++) {
         memcpy(&tempArray[index], &orgArray[i], sizeof(double));
         index = index + sizeof(double);
       }
@@ -184,5 +153,4 @@ public:
   utility();
   virtual ~utility();
 };
-
 #endif /* UTILITY_H_ */

@@ -36,26 +36,20 @@ public:
 
   template<class T> IplImage* convertGrayArrayToIplImage(T* orgArray, int width, int height) {
     IplImage* returnImg = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 1);
-    if (sizeof(T) == sizeof(int) || sizeof(T) == sizeof(short))
-    {
+    if (sizeof(T) == sizeof(int) || sizeof(T) == sizeof(short)) {
       int index = 0;
-      for (int i = 0; i < height; i++)
-      {
-        for (int j = 0; j < width; j++)
-        {
+      for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
           int pixel = orgArray[index];
           ((uchar*)(returnImg->imageData + i*returnImg->widthStep))[j] = pixel;
           index++;
         }
       }
     }
-    if (sizeof(T) == sizeof(char))
-    {
+    if (sizeof(T) == sizeof(char)) {
       int index = 0;
-      for (int i = 0; i < height; i++)
-      {
-        for (int j = 0; j < width; j++)
-        {
+      for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
           char pixel = orgArray[index];
           ((uchar*)(returnImg->imageData + i*returnImg->widthStep))[j] = pixel;
           index++;

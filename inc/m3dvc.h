@@ -46,8 +46,7 @@ public:
     int* lowPassFilter = new int[(Width*Height) / 2];
     //creating low freq
     int j = 0;
-    for (int i = 0; i < Width*Height; i = i + 2)
-    {
+    for (int i = 0; i < Width*Height; i = i + 2) {
       lowPassFilter[j] = ((int)dwtOrgImage[i] + (int)dwtOrgImage[i + 1]) / 2;
       j++;
     }
@@ -59,8 +58,7 @@ public:
     //creating low freq
     //creating high freq
     int j = 0;
-    for (int i = 0; i < Width*Height; i = i + 2)
-    {
+    for (int i = 0; i < Width*Height; i = i + 2) {
       highPassFilter[j] = (int)dwtOrgImage[i] - (int)lowPassFilter[j];
       j++;
     }
