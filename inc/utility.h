@@ -20,7 +20,7 @@
 
 using namespace std;
 
-class utility {
+class Utility {
 public:
   ofstream myfile;
   FILE* pFile;
@@ -152,7 +152,7 @@ public:
   }
   void saveDatatoDatFile(char* integratedArray, int size, char* filelocation);
 
-  utility();
-  virtual ~utility();
+  Utility();
+  virtual ~Utility();
 };
 #endif /* UTILITY_H_ */

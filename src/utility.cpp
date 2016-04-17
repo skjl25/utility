@@ -1,6 +1,6 @@
 #include "../inc/utility.h"
 #include "stdint.h"
-utility::utility() {}
+Utility::Utility() {}
 #if LINUX
 void utility::startTimer() {
   gettimeofday(&tv, NULL);
@@ -22,23 +22,23 @@ void utility::getElapsedTime(char* debugMsg) {
 #endif
 
 #if WINDOWS
-void utility::startTimer() {
+void Utility::startTimer() {
   start_time = clock();
 }
 
-void utility::getElapsedTime() {
+void Utility::getElapsedTime() {
   end_time = clock();
   elapsed_time = (double)(end_time - start_time);
   printf("Elapsed time is %f ms\n", elapsed_time);
 }
-void utility::getElapsedTime(char* debug_msg) {
+void Utility::getElapsedTime(char* debug_msg) {
   clock_t endTime = clock();
   elapsed_time = (double)(endTime - start_time);
   printf("%s Elapsed time is %f ms\n", debug_msg, elapsed_time);
 }
 #endif
 
-double utility::getMean(double** org_img, int width, int height) {
+double Utility::getMean(double** org_img, int width, int height) {
   double mean = 0;
   for (int i = 0; i < width; i++) {
     for (int j = 0; j < height; j++) {
@@ -48,7 +48,7 @@ double utility::getMean(double** org_img, int width, int height) {
   return mean / (width*height);
 }
 
-double utility::getMean(double* org_img, int width, int height) {
+double Utility::getMean(double* org_img, int width, int height) {
   double mean = 0;
   for (int i = 0; i < width*height; i++) {
     mean = mean + org_img[i];
@@ -56,7 +56,7 @@ double utility::getMean(double* org_img, int width, int height) {
   return mean / (width*height);
 }
 
-double utility::getStd(double** org_img, int width, int height) {
+double Utility::getStd(double** org_img, int width, int height) {
   double mean = 0;
   double sum = 0;
   for (int i = 0; i < width; i++) {
@@ -72,7 +72,7 @@ double utility::getStd(double** org_img, int width, int height) {
   return sum;
 }
 
-double utility::getStd(double* org_img, int width, int height) {
+double Utility::getStd(double* org_img, int width, int height) {
   double mean = 0;
   double sum = 0;
   for (int i = 0; i < width*height; i++) {
@@ -86,7 +86,7 @@ double utility::getStd(double* org_img, int width, int height) {
   return sum;
 }
 
-double** utility::convertChar1DToDouble2D(char* orgArray, int width,
+double** Utility::convertChar1DToDouble2D(char* orgArray, int width,
                                           int height) {
   double** resultArray = memset2DArray<double>(width, height);
 
@@ -101,7 +101,7 @@ double** utility::convertChar1DToDouble2D(char* orgArray, int width,
   return resultArray;
 }
 
-char* utility::convertDoubleToUintChar1D(double* returnArray2, int arrayLength) {
+char* Utility::convertDoubleToUintChar1D(double* returnArray2, int arrayLength) {
   int index = 0;
   char* tempArray = new char[arrayLength*sizeof(short)];
 
@@ -121,7 +121,7 @@ char* utility::convertDoubleToUintChar1D(double* returnArray2, int arrayLength) 
   return tempArray;
 }
 
-int* utility::convertCharToUintInt1D(char* orgArray, int arrayLength) {
+int* Utility::convertCharToUintInt1D(char* orgArray, int arrayLength) {
   //	int* returnArray=new int[arrayLength];
   int* returnArray = (int*)malloc(sizeof(int)*arrayLength);
   for (int i = 0; i < arrayLength; i++) {
@@ -131,7 +131,7 @@ int* utility::convertCharToUintInt1D(char* orgArray, int arrayLength) {
   return returnArray;
 }
 
-void utility::convertCharToUintInt1DExt(char* orgArray, int* convertArray,
+void Utility::convertCharToUintInt1DExt(char* orgArray, int* convertArray,
                                         int arrayLength) {
   //	int* returnArray=new int[arrayLength];
   //	int* returnArray=(int*)malloc(sizeof(int)*arrayLength);
@@ -142,7 +142,7 @@ void utility::convertCharToUintInt1DExt(char* orgArray, int* convertArray,
   //	return returnArray;
 }
 
-char* utility::convertDoubleToUintChar1D(double** returnArray2, int width,
+char* Utility::convertDoubleToUintChar1D(double** returnArray2, int width,
                                          int height) {
   int index = 0;
   int Width = width;
@@ -166,7 +166,7 @@ char* utility::convertDoubleToUintChar1D(double** returnArray2, int width,
   return tempArray;
 }
 
-void utility::changeFileNameInOrderedSequence(char* dst_file_name, int img_seq,
+void Utility::changeFileNameInOrderedSequence(char* dst_file_name, int img_seq,
                                               char* loc_folder,
                                               char* name_file_header,
                                               char* type_ext) {
@@ -189,17 +189,17 @@ void utility::changeFileNameInOrderedSequence(char* dst_file_name, int img_seq,
   sprintf(dst_file_name, "%s%s.%s", loc_folder, FileName, type_ext);
   delete[] FileName;
 }
-void utility::initWritingFile(char* fileLocation) {
+void Utility::initWritingFile(char* fileLocation) {
   //		pFile=fopen(fileLocation,"w");
   myfile.open(fileLocation);
 }
 
-void utility::closeFile() {
+void Utility::closeFile() {
   //		pFile=fopen(fileLocation,"w");
   myfile.close();
 }
 
-void utility::saveDatatoDatFile(char* integratedArray, int size,
+void Utility::saveDatatoDatFile(char* integratedArray, int size,
                                 char* filelocation) {
   char* fileName = new char[100];
   sprintf(fileName, "%s.dat", filelocation);
@@ -211,4 +211,4 @@ void utility::saveDatatoDatFile(char* integratedArray, int size,
   delete[] fileName;
 }
 
-utility::~utility() {}
+Utility::~Utility() {}
