@@ -1,5 +1,5 @@
 /*
-TCP client socket header for utility library
+typedef header for the cosa_enc
 
 The MIT License (MIT)
 
@@ -23,34 +23,20 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-#include <iostream>
-#include <fstream>
+#ifndef TYPEDEF_H_
+#define TYPEDEF_H_
 
-using namespace std;
+typedef unsigned char 	    uint8_t;
+typedef unsigned short int 	uint16_t;
+typedef unsigned int 	      uint32_t;
+typedef unsigned long long 	uint64_t;
 
-class TCPClientSocket
-{
-public:
-	int sock;
-	struct hostent *host;
-	struct sockaddr_in server_addr;
+typedef signed char 	      int8_t;
+typedef signed short int 	  int16_t;
+typedef signed int 	        int32_t;
+typedef long long 	        int64_t;
 
+typedef unsigned char       pixel_t;
+typedef void                void_t;
 
-	TCPClientSocket();
-	void EstablishConnection(char* serverIPAddress, int portNum);
-	char* ReadContentsOfFile(char* fileName);
-	void SendData(char* sendBuffer, int sizeOfBuffer);
-	void EndSendData();
-
-	void CloseConnection();
-
-};
+#endif /* TYPEDEF_H_ */

@@ -1,7 +1,32 @@
-#include "../inc/image_processing.h"
+/*
+image tools for utility library
+
+The MIT License (MIT)
+
+Copyright (c) 2014-2017 Suk Kyu Lee <skjl25@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+*/
+
+#include "../inc/img_tools.h"
 
 void_t ImageTools::saveSequenceOfIplImages(char* filelocation, int num_sequence,
-                                           IplImage* foregroundImg) {
+  IplImage* foregroundImg) {
   char* fileName2 = new char[100];
   sprintf(fileName2, "%s_%d.pgm", filelocation, num_sequence);
   cvSaveImage(fileName2, foregroundImg);
@@ -9,7 +34,7 @@ void_t ImageTools::saveSequenceOfIplImages(char* filelocation, int num_sequence,
 }
 
 void_t ImageTools::convertToGrayScale(char* origImg, char* grayG2ImgChar,
-                                      uint32_t width, uint32_t height) {
+  uint32_t width, uint32_t height) {
   for (uint32_t i = 0; i < width*height; i++) {
     uint32_t location = 3 * i + 1;
     grayG2ImgChar[i] = origImg[location];
@@ -17,8 +42,8 @@ void_t ImageTools::convertToGrayScale(char* origImg, char* grayG2ImgChar,
 }
 
 IplImage* ImageTools::convertColorArrayToIplImage(char* orgArray,
-                                                  uint32_t height,
-                                                  uint32_t width) {
+  uint32_t height,
+  uint32_t width) {
   IplImage* returnImg = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 3);
   int index = height*width;
   uint32_t offset = returnImg->widthStep;
@@ -41,8 +66,8 @@ IplImage* ImageTools::convertColorArrayToIplImage(char* orgArray,
 }
 
 IplImage* ImageTools::convertColorArrayToIplImage_ext(char* orgArray,
-                                                      uint32_t height,
-                                                      uint32_t width) {
+  uint32_t height,
+  uint32_t width) {
   IplImage* returnImg = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 3);
   int idx = 0;
   uint32_t offset = returnImg->widthStep;
@@ -65,8 +90,8 @@ IplImage* ImageTools::convertColorArrayToIplImage_ext(char* orgArray,
 }
 
 void_t ImageTools::convertIplImageToCharArray(char* returnArray,
-                                              IplImage* orgImage, uint32_t height,
-                                              uint32_t width) {
+  IplImage* orgImage, uint32_t height,
+  uint32_t width) {
   uint32_t offset = orgImage->widthStep;
   for (uint32_t i = 0; i < height; i++) {
     for (uint32_t j = 0; j < width; j++) {
@@ -77,9 +102,9 @@ void_t ImageTools::convertIplImageToCharArray(char* returnArray,
 }
 
 void_t ImageTools::convertColorIplImageToCharArray(char* returnArray,
-                                                   IplImage* orgImage,
-                                                   uint32_t height,
-                                                   uint32_t width) {
+  IplImage* orgImage,
+  uint32_t height,
+  uint32_t width) {
   int index = 0;
   char* image_data = orgImage->imageData;
   uint32_t offset = orgImage->widthStep;
@@ -113,7 +138,7 @@ double_t ImageTools::compute_ipl_img_sdv(IplImage* data) {
   for (int i = 0; i < data->height; i++) {
     for (int j = 0; j < data->width; j++) {
       threshSdv = pow((((uchar*)(data->imageData + i*offset))[j] - threshMean),
-                         2) + threshSdv;
+        2) + threshSdv;
     }
   }
   threshSdv = sqrt(threshSdv / (data->height*data->width));
@@ -143,13 +168,13 @@ double_t ImageTools::compute_euclidean_dist(int x1, int x2, int y1, int y2) {
 }
 
 IplImage* ImageTools::getSynthesizedImage_gray(IplImage* leftIm,
-                                               IplImage* rightIm,
-                                               int* dispMapMat, double_t alpha) {
+  IplImage* rightIm,
+  int* dispMapMat, double_t alpha) {
   int dispVal = 0;
   IplImage *iirImage = cvCreateImage(cvSize(rightIm->width, rightIm->height),
-                                     IPL_DEPTH_8U, 1);
+    IPL_DEPTH_8U, 1);
   IplImage *iImage = cvCreateImage(cvSize(rightIm->width, rightIm->height),
-                                   IPL_DEPTH_8U, 1);
+    IPL_DEPTH_8U, 1);
 
   int dispMapMatIndex = 0;
   for (int i = 0; i < rightIm->height; i++) {
@@ -212,15 +237,15 @@ IplImage* ImageTools::getSynthesizedImage_gray(IplImage* leftIm,
 }
 
 IplImage* ImageTools::getSynthesizedImage_rgb(IplImage* leftIm,
-                                              IplImage* rightIm,
-                                              int** dispMapMat, double_t alpha) {
+  IplImage* rightIm,
+  int** dispMapMat, double_t alpha) {
   int dispVal = 0;
   IplImage *iirCImage = cvCreateImage(cvSize(rightIm->width, rightIm->height),
-                                      IPL_DEPTH_8U, 3);
+    IPL_DEPTH_8U, 3);
   IplImage *iilCImage = cvCreateImage(cvSize(rightIm->width, rightIm->height),
-                                      IPL_DEPTH_8U, 3);
+    IPL_DEPTH_8U, 3);
   IplImage *iCImage = cvCreateImage(cvSize(rightIm->width, rightIm->height),
-                                    IPL_DEPTH_8U, 3);
+    IPL_DEPTH_8U, 3);
 
 #ifdef _GRAY
   for (int i = 0; i < rightImGray->height; i++) {
@@ -299,7 +324,7 @@ IplImage* ImageTools::getSynthesizedImage_rgb(IplImage* leftIm,
 //}
 
 char* ImageTools::load_pgm(string filename, unsigned int& width,
-                           unsigned int& height) {
+  unsigned int& height) {
   char * data;
   char tmpc;
   string type;
@@ -333,7 +358,7 @@ char* ImageTools::load_pgm(string filename, unsigned int& width,
 }
 
 void_t ImageTools::save_ppm_unsigned(string filename, unsigned char* data,
-                                     uint32_t width, uint32_t height) {
+  uint32_t width, uint32_t height) {
   FILE* fid = fopen(filename.c_str(), "w");
   fprintf(fid, "P6\n%u %u\n255\n", width, height);
   fwrite(data, 1, width*height * 3, fid);
@@ -341,7 +366,7 @@ void_t ImageTools::save_ppm_unsigned(string filename, unsigned char* data,
 }
 
 char* ImageTools::load_ppm(string filename, unsigned int& width,
-                           unsigned int& height) {
+  unsigned int& height) {
   char * data;
   char tmpc;
   string type;
@@ -398,7 +423,7 @@ char* ImageTools::load_ppm(string filename, unsigned int& width,
 }
 
 void_t ImageTools::save_ppm(string filename, char* data,
-                            uint32_t width, uint32_t height) {
+  uint32_t width, uint32_t height) {
   FILE* fid = fopen(filename.c_str(), "w");
   fprintf(fid, "P6\n%u %u\n255\n", width, height);
   fwrite(data, 1, width*height * 3, fid);
@@ -406,8 +431,8 @@ void_t ImageTools::save_ppm(string filename, char* data,
 }
 
 void_t ImageTools::extractVideoSequenceToImg(char* movieFileLocation,
-                                             char* saveFileLocation,
-                                             char* saveFileType) {
+  char* saveFileLocation,
+  char* saveFileType) {
   //char fileName[200];
   //sprintf(fileName, "%s.avi", movieFileLocation);
   printf("%s\n", movieFileLocation);
@@ -439,7 +464,7 @@ void_t ImageTools::extractVideoSequenceToImg(char* movieFileLocation,
 }
 //Calculates image PSNR value
 double_t ImageTools::get_image_psnr(uint8_t* rec_img, uint8_t* org_img,
-                                    uint32_t width, uint32_t height) {
+  uint32_t width, uint32_t height) {
   double_t mse = 0.0;
   double_t mse_temp = 0.0;
   double_t psnr = 0.0;
@@ -461,4 +486,3 @@ double_t ImageTools::get_image_psnr(uint8_t* rec_img, uint8_t* org_img,
   //Thats it.
   return psnr;
 }
-

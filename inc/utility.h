@@ -1,3 +1,28 @@
+/*
+utility header for the cosa_enc
+
+The MIT License (MIT)
+
+Copyright (c) 2014-2017 Suk Kyu Lee <skjl25@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+*/
+
 #ifndef UTILITY_H_
 #define UTILITY_H_
 
@@ -7,10 +32,9 @@
 #include <string.h>
 #include <assert.h>
 #include <math.h>
-#include <math.h>
 #include <fstream>
 #include <vector>
-#include "omp.h"
+#include <stdint.h>
 #define WINDOWS 1
 #define LINUX 0
 
@@ -42,7 +66,7 @@ public:
   //double array->Uint character array //255.0->255 double val is within the
   //unsigned char range
   char* convertDoubleToUintChar1D(double** returnArray2, int width1,
-                                  int height1);
+    int height1);
   char* convertDoubleToUintChar1D(double* returnArray2, int arrayLength);
 
   //char array->Double array
@@ -50,7 +74,7 @@ public:
 
   int* convertCharToUintInt1D(char* orgArray, int arrayLength);
   void convertCharToUintInt1DExt(char* orgArray, int* convertArray,
-                                 int arrayLength);
+    int arrayLength);
 
   //Getting the avg and standard deviation of set of arrays in various forms
   double getMean(double** org_img, int width, int height);
@@ -59,8 +83,8 @@ public:
   double getStd(double* org_img, int width, int height);
 
   void changeFileNameInOrderedSequence(char* dst_file_name, int img_seq,
-                                       char* loc_folder, char* name_file_header,
-                                       char* type_ext);
+    char* loc_folder, char* name_file_header,
+    char* type_ext);
 
   //Writing File functions
   void initWritingFile(char* fileLocation);
@@ -85,7 +109,7 @@ public:
   }
 
   template<class T> double* convertArrayToDouble1D(T* orgArray, int width,
-                                                   int height) {
+    int height) {
     double* resultArray = new double[width*height];
 
     if (sizeof(T) == sizeof(char)) {
@@ -108,7 +132,7 @@ public:
   }
 
   template<class T> char* convertVectorToChar1D(vector<T> returnArray2,
-                                                int arrayLength) {
+    int arrayLength) {
     if (sizeof(T) == sizeof(int)) {
       int index = 0;
       char* tempArray = new char[arrayLength*sizeof(int)];

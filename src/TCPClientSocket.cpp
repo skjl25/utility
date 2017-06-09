@@ -1,8 +1,33 @@
+/*
+TCP client socket for utility library
+
+The MIT License (MIT)
+
+Copyright (c) 2014-2017 Suk Kyu Lee <skjl25@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+*/
+
 #include "TCPClientSocket.h"
 #define length(a) ( sizeof ( a ) / sizeof ( *a ) )
 
 #if !defined(ARRAY_SIZE)
-    #define ARRAY_SIZE(x) (sizeof((x)) / sizeof((x)[0]))
+		#define ARRAY_SIZE(x) (sizeof((x)) / sizeof((x)[0]))
 #endif
 
 TCPClientSocket::TCPClientSocket()
@@ -38,20 +63,20 @@ double* tcpreadTextFile(char* fileName)
 {
 	double* returnArray=new double[307200];
 	ifstream in("/home/sklee25/Desktop/string.txt");
-	   if(!in){
-	      cout << "Cannot open file.";
-	      exit (1);
-	   }
-	   char str[255];
-	   int counter=0;
-	   while(in){
-	      in.getline(str, 255);      // Delimiter defaults to newline
-	      returnArray[counter]=atof(str);
+		 if(!in){
+				cout << "Cannot open file.";
+				exit (1);
+		 }
+		 char str[255];
+		 int counter=0;
+		 while(in){
+				in.getline(str, 255);      // Delimiter defaults to newline
+				returnArray[counter]=atof(str);
 //	      cout << returnArray[counter] << "  "<<counter<<endl;
-	      counter++;
-	   }
-	   in.close();
-	   return returnArray;
+				counter++;
+		 }
+		 in.close();
+		 return returnArray;
 }
 
 
