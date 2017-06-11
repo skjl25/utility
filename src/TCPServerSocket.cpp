@@ -28,15 +28,13 @@ DEALINGS IN THE SOFTWARE.
 
 #include "TCPServerSocket.h"
 
-TCPServerSocket::TCPServerSocket()
-{
+TCPServerSocket::TCPServerSocket() {
 	result=1;
 	//	int maxSizeToReceive=100000;
 
 }
 
-void TCPServerSocket::PrepareConnection(int portNum)
-{
+void TCPServerSocket::PrepareConnection(int portNum) {
 	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
 		perror("Socket");
 		exit(1);
@@ -52,8 +50,7 @@ void TCPServerSocket::PrepareConnection(int portNum)
 	server_addr.sin_addr.s_addr = INADDR_ANY;
 	bzero(&(server_addr.sin_zero),8);
 
-	if (bind(sock, (struct sockaddr *)&server_addr, sizeof(struct sockaddr))
-			== -1) {
+	if (bind(sock, (struct sockaddr *)&server_addr, sizeof(struct sockaddr)) == -1) {
 		perror("Unable to bind");
 		exit(1);
 	}
@@ -66,8 +63,7 @@ void TCPServerSocket::PrepareConnection(int portNum)
 	fflush(stdout);
 }
 
-void TCPServerSocket::AcceptConnection()
-{
+void TCPServerSocket::AcceptConnection() {
 	sin_size = sizeof(struct sockaddr_in);
 
 	connected = accept(sock, (struct sockaddr *)&client_addr,&sin_size);
@@ -75,8 +71,7 @@ void TCPServerSocket::AcceptConnection()
 
 }
 
-char* TCPServerSocket::ReceiveData(char *sendBuffer)
-{
+char* TCPServerSocket::ReceiveData(char *sendBuffer) {
 	int size=1000;
 	int size1=1000000;
 	int flag=0;
@@ -106,8 +101,7 @@ char* TCPServerSocket::ReceiveData(char *sendBuffer)
 	return NULL;
 }
 
-int TCPServerSocket::ReceiveData_cvideo(char *sendBuffer)
-{
+int TCPServerSocket::ReceiveData_cvideo(char *sendBuffer) {
 	int size=1000;
 	int size1=1000000;
 	int flag=0;
@@ -139,8 +133,7 @@ int TCPServerSocket::ReceiveData_cvideo(char *sendBuffer)
 
 
 
-char* TCPServerSocket::ReceiveData_auto(char *sendBuffer)
-{
+char* TCPServerSocket::ReceiveData_auto(char *sendBuffer) {
 	int size=1000;
 	int size1=1000000;
 	int flag=0;
@@ -171,8 +164,7 @@ char* TCPServerSocket::ReceiveData_auto(char *sendBuffer)
 }
 
 
-char* TCPServerSocket::ReceiveFileName()
-{
+char* TCPServerSocket::ReceiveFileName() {
 	int flag=0;
 	int size1=100000000;
 	char buf[size1];
@@ -193,8 +185,7 @@ char* TCPServerSocket::ReceiveFileName()
 	return buf;
 }
 
-void TCPServerSocket::CloseConnection()
-{
+void TCPServerSocket::CloseConnection() {
 	close(connected);
 	close(sock);
 }

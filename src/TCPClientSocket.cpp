@@ -30,8 +30,7 @@ DEALINGS IN THE SOFTWARE.
 		#define ARRAY_SIZE(x) (sizeof((x)) / sizeof((x)[0]))
 #endif
 
-TCPClientSocket::TCPClientSocket()
-{
+TCPClientSocket::TCPClientSocket() {
 	sock=0;
 }
 
@@ -59,8 +58,7 @@ char* TCPClientSocket::ReadContentsOfFile(char* fileName){
 	return buffer;
 }
 
-double* tcpreadTextFile(char* fileName)
-{
+double* tcpreadTextFile(char* fileName) {
 	double* returnArray=new double[307200];
 	ifstream in("/home/sklee25/Desktop/string.txt");
 		 if(!in){
@@ -80,8 +78,7 @@ double* tcpreadTextFile(char* fileName)
 }
 
 
-void TCPClientSocket::SendData(char* sendBuffer,int sizeOfBuffer)
-{
+void TCPClientSocket::SendData(char* sendBuffer, int sizeOfBuffer) {
 	int dataSend=send(sock,sendBuffer,sizeOfBuffer,0);
 	printf("TCPClientSocket::SendData() total data transmitted %d  %d\n",dataSend);
 	close(sock);
@@ -96,8 +93,7 @@ void TCPClientSocket::EndSendData()
 }
 
 
-void TCPClientSocket::EstablishConnection(char* serverIPAddress, int portNum)
-{
+void TCPClientSocket::EstablishConnection(char* serverIPAddress, int portNum) {
 	host = gethostbyname(serverIPAddress);
 	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
 		perror("Socket");
@@ -115,7 +111,6 @@ void TCPClientSocket::EstablishConnection(char* serverIPAddress, int portNum)
 	}
 }
 
-void TCPClientSocket::CloseConnection()
-{
+void TCPClientSocket::CloseConnection() {
 	close(sock);
 }

@@ -37,8 +37,18 @@ DEALINGS IN THE SOFTWARE.
 #include <stdlib.h>
 #include "typedef.h"
 #define MAX_1                   (255*255)
+#define PI 3.141592
+#define ToRadian(degree) ((degree)*(PI/180.0f))
+#define ToDegree(radian) ((radian)*(180.0f/PI))
 
 using namespace std;
+
+struct PCoordinate {
+  double x;
+  double y;
+  double degree;
+  double eculideanDistance;
+};
 
 class ImageTools {
 public:
