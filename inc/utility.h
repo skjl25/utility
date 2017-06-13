@@ -48,7 +48,6 @@ class Utility {
 public:
   ofstream myfile;
   FILE* pFile;
-  //struct timeval tv;
 #if LINUX
   double start_time, end_time, elapsed_time;
 #endif
@@ -79,11 +78,10 @@ public:
   double getStd(double** src, int width, int height);
   double getStd(double* src, int width, int height);
 
+  //Writing File functions
   void changeFileNameInOrderedSequence(char* dst_file_name, int img_seq,
                                        char* loc_folder, char* name_file_header,
                                        char* type_ext);
-
-  //Writing File functions
   void initWritingFile(char* fileLocation);
   void closeFile();
   void saveDatatoDatFile(char* src, int src_length, char* loc_file);
