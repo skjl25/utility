@@ -188,9 +188,9 @@ char* Utility::convertDoubleToUintChar1D(double** src, int width, int height) {
 }
 
 void Utility::changeFileNameInOrderedSequence(char* dst_file_name, int img_seq,
-                                              char* loc_folder,
-                                              char* name_file_header,
-                                              char* type_ext) {
+  char* loc_folder,
+  char* name_file_header,
+  char* type_ext) {
   char* file_name = new char[100];
   if (img_seq < 10) {
     sprintf(file_name, "%s_0000%d", name_file_header, img_seq);
