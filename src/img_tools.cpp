@@ -24,7 +24,7 @@ DEALINGS IN THE SOFTWARE.
 */
 
 #include "../inc/img_tools.h"
-void_t ImageTools::saveSequenceOfIplImages(char* filelocation, int num_sequence,
+void ImageTools::saveSequenceOfIplImages(char* filelocation, int num_sequence,
                                            IplImage* foregroundImg) {
   char* fileName2 = new char[100];
   sprintf(fileName2, "%s_%d.pgm", filelocation, num_sequence);
@@ -32,7 +32,7 @@ void_t ImageTools::saveSequenceOfIplImages(char* filelocation, int num_sequence,
   delete[] fileName2;
 }
 
-void_t ImageTools::convertToGrayScale(char* origImg, char* grayG2ImgChar,
+void ImageTools::convertToGrayScale(char* origImg, char* grayG2ImgChar,
                                       uint32_t width, uint32_t height) {
   for (uint32_t i = 0; i < width*height; i++) {
     uint32_t location = 3 * i + 1;
@@ -86,7 +86,7 @@ IplImage* ImageTools::convertColorArrayToIplImage_ext(char* src, uint32_t height
   return returnImg;
 }
 
-void_t ImageTools::convertIplImageToCharArray(char* dst, IplImage* src,
+void ImageTools::convertIplImageToCharArray(char* dst, IplImage* src,
                                               uint32_t height, uint32_t width) {
   uint32_t offset = src->widthStep;
   for (uint32_t i = 0; i < height; i++) {
@@ -97,7 +97,7 @@ void_t ImageTools::convertIplImageToCharArray(char* dst, IplImage* src,
   //	return dst;
 }
 
-void_t ImageTools::convertColorIplImageToCharArray(char* dst, IplImage* src,
+void ImageTools::convertColorIplImageToCharArray(char* dst, IplImage* src,
                                                    uint32_t height,
                                                    uint32_t width) {
   int index = 0;
@@ -308,7 +308,7 @@ IplImage* ImageTools::getSynthesizedImage_rgb(IplImage* img_left, IplImage* img_
   return iCImage;
 }
 
-//void_t ImageTools::save_pgm(string filename, char* src, unsigned int width, unsigned int height)
+//void ImageTools::save_pgm(string filename, char* src, unsigned int width, unsigned int height)
 //{
 //	FILE* fid = fopen(filename.c_str(), "w");
 //	fprintf(fid,"P5\n%u %u\n255\n", width, height);
@@ -350,7 +350,7 @@ char* ImageTools::load_pgm(string filename, unsigned int& width,
   return src;
 }
 
-void_t ImageTools::save_ppm_unsigned(string filename, unsigned char* src,
+void ImageTools::save_ppm_unsigned(string filename, unsigned char* src,
                                      uint32_t width, uint32_t height) {
   FILE* fid = fopen(filename.c_str(), "w");
   fprintf(fid, "P6\n%u %u\n255\n", width, height);
@@ -415,7 +415,7 @@ char* ImageTools::load_ppm(string filename, unsigned int& width,
   return src;
 }
 
-void_t ImageTools::save_ppm(string filename, char* src,
+void ImageTools::save_ppm(string filename, char* src,
                             uint32_t width, uint32_t height) {
   FILE* fid = fopen(filename.c_str(), "w");
   fprintf(fid, "P6\n%u %u\n255\n", width, height);
@@ -423,7 +423,7 @@ void_t ImageTools::save_ppm(string filename, char* src,
   fclose(fid);
 }
 
-void_t ImageTools::extractVideoSequenceToImg(char* movieFileLocation,
+void ImageTools::extractVideoSequenceToImg(char* movieFileLocation,
                                              char* saveFileLocation,
                                              char* saveFileType) {
   //char fileName[200];
@@ -470,7 +470,7 @@ double_t ImageTools::get_image_psnr(uint8_t* img_recon, uint8_t* img_org,
   }
   mse /= width*height;
 
-  //Avoid_t division by zero
+  //Avoid division by zero
   if (mse == 0) {
     return 99.0;
   }
@@ -519,7 +519,7 @@ vector<PCoordinate> getDataOfImage(IplImage* edge_img, PCoordinate centroid_org_
   return vectorOne;
 }
 
-void_t dtw() {
+void dtw() {
   int** DTW = 0;
   int size_org_img = 0;
   int size_comp_img = 0;

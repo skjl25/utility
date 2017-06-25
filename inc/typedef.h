@@ -37,6 +37,6 @@ typedef signed int 	        int32_t;
 typedef long long 	        int64_t;
 
 typedef unsigned char       pixel_t;
-typedef void                void_t;
+//typedef void                void;
 
 #endif /* TYPEDEF_H_ */

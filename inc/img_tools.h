@@ -52,17 +52,17 @@ struct PCoordinate {
 
 class ImageTools {
 public:
-  void_t saveSequenceOfIplImages(char* filelocation, int num_sequence, IplImage* foregroundImg);
-  void_t convertToGrayScale(char* origImg, char* grayG2ImgChar, uint32_t width,
+  void saveSequenceOfIplImages(char* filelocation, int num_sequence, IplImage* foregroundImg);
+  void convertToGrayScale(char* origImg, char* grayG2ImgChar, uint32_t width,
                             uint32_t height);
   //IplImage* convertCharGrayArrayToIplImage(char* src, int height, int width);
   IplImage* convertColorArrayToIplImage(char* src, uint32_t height,
                                         uint32_t width);
   IplImage* convertColorArrayToIplImage_ext(char* src, uint32_t height,
                                             uint32_t width);
-  void_t convertIplImageToCharArray(char* dst, IplImage* src,
+  void convertIplImageToCharArray(char* dst, IplImage* src,
                                     uint32_t height, uint32_t width);
-  void_t convertColorIplImageToCharArray(char* dst, IplImage* src,
+  void convertColorIplImageToCharArray(char* dst, IplImage* src,
                                          uint32_t height, uint32_t width);
 
   double_t compute_euclidean_dist(int x1, int x2, int y1, int y2);
@@ -72,13 +72,13 @@ public:
   IplImage* getSynthesizedImage_rgb(IplImage* img_left, IplImage* img_right,
                                     int** dispMapMat, double_t alpha);
 
-  //void_t save_pgm(string, char*, unsigned int, unsigned int);
+  //void save_pgm(string, char*, unsigned int, unsigned int);
   char* load_pgm(string, unsigned int&, unsigned int&);
-  void_t save_ppm(string, char*, uint32_t, uint32_t);
+  void save_ppm(string, char*, uint32_t, uint32_t);
   char* load_ppm(string, unsigned int&, unsigned int&);
-  void_t save_ppm_unsigned(string filename, unsigned char* src,
+  void save_ppm_unsigned(string filename, unsigned char* src,
                            uint32_t width, uint32_t height);
-  void_t extractVideoSequenceToImg(char* movieFileLocation,
+  void extractVideoSequenceToImg(char* movieFileLocation,
                                    char* saveFileLocation, char* saveFileType);
   double_t get_image_psnr(uint8_t *img_recon, uint8_t *img_org, uint32_t width,
                           uint32_t height);
