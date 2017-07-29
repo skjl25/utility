@@ -57,23 +57,22 @@ struct yuv_data {
   unsigned char **pYFrame;
   unsigned char **pUFrame;
   unsigned char **pVFrame;
-  FILE* pInpVideo;
 };
 
 class ImageTools {
 public:
-  void saveSequenceOfIplImages(char* filelocation, int num_sequence, IplImage* foregroundImg);
-  void convertToGrayScale(char* origImg, char* grayG2ImgChar, uint32_t width,
-                            uint32_t height);
   //IplImage* convertCharGrayArrayToIplImage(char* src, int height, int width);
-  IplImage* convertColorArrayToIplImage(char* src, uint32_t height,
-                                        uint32_t width);
-  IplImage* convertColorArrayToIplImage_ext(char* src, uint32_t height,
+  void saveSequenceOfIplImages(char* filelocation, int num_sequence,
+                               IplImage* foregroundImg);
+  void convertToGrayScale(char* origImg, char* grayG2ImgChar, uint32_t width,
+                          uint32_t height);
+  IplImage* convertColorArrayToIplImage(char* src, uint32_t height, uint32_t width);
+  IplImage* convertColorArrayToIplImage_ext(char* src, uint32_t height, 
                                             uint32_t width);
-  void convertIplImageToCharArray(char* dst, IplImage* src,
-                                    uint32_t height, uint32_t width);
-  void convertColorIplImageToCharArray(char* dst, IplImage* src,
-                                         uint32_t height, uint32_t width);
+  void convertIplImageToCharArray(char* dst, IplImage* src, uint32_t height, 
+                                  uint32_t width);
+  void convertColorIplImageToCharArray(char* dst, IplImage* src, uint32_t height, 
+                                       uint32_t width);
 
   double_t compute_euclidean_dist(int x1, int x2, int y1, int y2);
 
@@ -86,7 +85,8 @@ public:
   char* load_pgm(string, unsigned int&, unsigned int&);
   void save_ppm(string, char*, uint32_t, uint32_t);
   char* load_ppm(string, unsigned int&, unsigned int&);
-  void load_yuv_data(yuv_data * src, char * input_file_name, int num_frames, int pic_height, int pic_width);
+  void load_yuv_data(yuv_data * src, char * input_file_name, int num_frames, 
+                     int pic_height, int pic_width);
   void write_yuv_data(yuv_data * src, char * output_file_name);
   void save_ppm_unsigned(string filename, unsigned char* src, uint32_t width,
                          uint32_t height);
@@ -95,8 +95,7 @@ public:
   double_t get_image_psnr(uint8_t *img_recon, uint8_t *img_org, uint32_t width,
                           uint32_t height);
   int compute_ipl_img_avg(IplImage* src);
-  double_t compute_ipl_img_sdv(IplImage* src);
-
+double_t compute_ipl_img_sdv(IplImage* src);
   
 template<class T> IplImage* convertGrayArrayToIplImage(T* src, int width,
                                                        int height) {

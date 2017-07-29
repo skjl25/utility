@@ -351,19 +351,20 @@ char* ImageTools::load_pgm(string filename, unsigned int& width,
 }
 
 void read_yuv(yuv_data* src, char* input_file_name) {
-  src->pInpVideo = fopen(input_file_name,"rb");
-  if (!src->pInpVideo) {
+  FILE* pInpVideo;
+  int nSize = src->width * src->height;
+
+  pInpVideo = fopen(input_file_name, "rb");
+  if (!pInpVideo) {
     printf("error");
   }
 
-  int nSize = src->width * src->height;
-
   for (int i = 0; i < src->num_frames; i++) {
-    fread(src->pYFrame[i], sizeof(unsigned char), (nSize), src->pInpVideo);
-    fread(src->pUFrame[i], sizeof(unsigned char), (nSize) / 4, src->pInpVideo);
-    fread(src->pVFrame[i], sizeof(unsigned char), (nSize) / 4, src->pInpVideo);
+    fread(src->pYFrame[i], sizeof(unsigned char), (nSize), pInpVideo);
+    fread(src->pUFrame[i], sizeof(unsigned char), (nSize) / 4, pInpVideo);
+    fread(src->pVFrame[i], sizeof(unsigned char), (nSize) / 4, pInpVideo);
   }
-  fclose(src->pInpVideo);
+  fclose(pInpVideo);
 
 }
 
@@ -372,20 +373,21 @@ void ImageTools::load_yuv_data(yuv_data* src, char* input_file_name, int num_fra
   src->num_frames = num_frames;
   src->height = pic_height;
   src->width = pic_width;
-  
+  int nSize = src->width * src->height;
+
   src->pYFrame = new unsigned char*[src->num_frames];
   for (int i = 0; i < src->num_frames; i++) {
-    src->pYFrame[i] = new unsigned char[src->height*src->width];
+    src->pYFrame[i] = new unsigned char[nSize];
   }
 
   src->pUFrame = new unsigned char*[src->num_frames];
   for (int i = 0; i < src->num_frames; i++) {
-    src->pUFrame[i] = new unsigned char[src->height*src->width/4];
+    src->pUFrame[i] = new unsigned char[nSize /4];
   }
 
   src->pVFrame = new unsigned char*[src->num_frames];
   for (int i = 0; i < src->num_frames; i++) {
-    src->pVFrame[i] = new unsigned char[src->height*src->width/4];
+    src->pVFrame[i] = new unsigned char[nSize/4];
   }
 
   read_yuv(src, input_file_name);
