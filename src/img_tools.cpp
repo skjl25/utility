@@ -350,6 +350,59 @@ char* ImageTools::load_pgm(string filename, unsigned int& width,
   return src;
 }
 
+void read_yuv(yuv_data* src, char* input_file_name) {
+  src->pInpVideo = fopen(input_file_name,"rb");
+  if (!src->pInpVideo) {
+    printf("error");
+  }
+
+  int nSize = src->width * src->height;
+
+  for (int i = 0; i < src->num_frames; i++) {
+    fread(src->pYFrame[i], sizeof(unsigned char), (nSize), src->pInpVideo);
+    fread(src->pUFrame[i], sizeof(unsigned char), (nSize) / 4, src->pInpVideo);
+    fread(src->pVFrame[i], sizeof(unsigned char), (nSize) / 4, src->pInpVideo);
+  }
+  fclose(src->pInpVideo);
+
+}
+
+void ImageTools::load_yuv_data(yuv_data* src, char* input_file_name, int num_frames,
+                               int pic_height, int pic_width) {
+  src->num_frames = num_frames;
+  src->height = pic_height;
+  src->width = pic_width;
+  
+  src->pYFrame = new unsigned char*[src->num_frames];
+  for (int i = 0; i < src->num_frames; i++) {
+    src->pYFrame[i] = new unsigned char[src->height*src->width];
+  }
+
+  src->pUFrame = new unsigned char*[src->num_frames];
+  for (int i = 0; i < src->num_frames; i++) {
+    src->pUFrame[i] = new unsigned char[src->height*src->width/4];
+  }
+
+  src->pVFrame = new unsigned char*[src->num_frames];
+  for (int i = 0; i < src->num_frames; i++) {
+    src->pVFrame[i] = new unsigned char[src->height*src->width/4];
+  }
+
+  read_yuv(src, input_file_name);
+}
+
+void ImageTools::write_yuv_data(yuv_data* src, char* output_file_name) {
+  FILE *pTestOut;
+  pTestOut = fopen(output_file_name, "w");
+  int nSize = src->height* src->width;
+  for (int i = 0; i < src->num_frames; i++) {
+    fwrite(src->pYFrame[i], sizeof(unsigned char), (nSize), pTestOut);
+    fwrite(src->pUFrame[i], sizeof(unsigned char), (nSize) / 4, pTestOut);
+    fwrite(src->pVFrame[i], sizeof(unsigned char), (nSize) / 4, pTestOut);
+  }
+  fclose(pTestOut);
+}
+
 void ImageTools::save_ppm_unsigned(string filename, unsigned char* src,
                                      uint32_t width, uint32_t height) {
   FILE* fid = fopen(filename.c_str(), "w");
