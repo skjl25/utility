@@ -95,6 +95,9 @@ public:
     myfile << data << endl;
   }
 
+  //----------------------------------------------------------------------------
+  // Memory allocation
+  //
   template<class T> T** memset2DArray(int width, int height) {
     T** dst = new T*[width];
     for (int i = 0; i < width; i++) {
@@ -102,6 +105,12 @@ public:
     }
     return dst;
   }
+
+  template<class T> T* memset1DArray(int size) {
+	  T* dst = new T[size];
+	  return dst;
+  }
+  //----------------------------------------------------------------------------
 
   template<class T> double* convertArrayToDouble1D(T* src, int width, int height) {
     double* dst = new double[width*height];
