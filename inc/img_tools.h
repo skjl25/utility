@@ -50,7 +50,7 @@ struct PCoordinate {
   double eculideanDistance;
 };
 
-struct yuv_data {
+struct yuv_video {
   int num_frames;
   int width;
   int height;
@@ -85,9 +85,9 @@ public:
   char* load_pgm(string, unsigned int&, unsigned int&);
   void save_ppm(string, char*, uint32_t, uint32_t);
   char* load_ppm(string, unsigned int&, unsigned int&);
-  void load_yuv_data(yuv_data * src, char * input_file_name, int num_frames, 
+  void load_yuv_data(yuv_video * src, char * input_file_name, int num_frames, 
                      int pic_height, int pic_width);
-  void write_yuv_data(yuv_data * src, char * output_file_name);
+  void write_yuv_data(yuv_video * src, char * output_file_name);
   void save_ppm_unsigned(string filename, unsigned char* src, uint32_t width,
                          uint32_t height);
   void extractVideoSequenceToImg(char* movieFileLocation, char* saveFileLocation, 
@@ -95,32 +95,32 @@ public:
   double_t get_image_psnr(uint8_t *img_recon, uint8_t *img_org, uint32_t width,
                           uint32_t height);
   int compute_ipl_img_avg(IplImage* src);
-double_t compute_ipl_img_sdv(IplImage* src);
+  double_t compute_ipl_img_sdv(IplImage* src);
   
-template<class T> IplImage* convertGrayArrayToIplImage(T* src, int width,
-                                                       int height) {
-    IplImage* dst = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 1);
-    if (sizeof(T) == sizeof(int) || sizeof(T) == sizeof(short)) {
-      int index = 0;
-      for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-          int pixel = src[index];
-          ((uchar*)(dst->imageData + i*dst->widthStep))[j] = pixel;
-          index++;
-        }
-      }
-    }
-    if (sizeof(T) == sizeof(char)) {
-      int index = 0;
-      for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-          char pixel = src[index];
-          ((uchar*)(dst->imageData + i*dst->widthStep))[j] = pixel;
-          index++;
-        }
-      }
-    }
-    return dst;
+  template<class T> IplImage* convertGrayArrayToIplImage(T* src, int width,
+												    	 int height) {
+	  IplImage* dst = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 1);
+	  if (sizeof(T) == sizeof(int) || sizeof(T) == sizeof(short)) {
+		  int index = 0;
+		  for (int i = 0; i < height; i++) {
+			  for (int j = 0; j < width; j++) {
+				  int pixel = src[index];
+				  ((uchar*)(dst->imageData + i * dst->widthStep))[j] = pixel;
+				  index++;
+			  }
+		  }
+	  }
+	  if (sizeof(T) == sizeof(char)) {
+		  int index = 0;
+		  for (int i = 0; i < height; i++) {
+			  for (int j = 0; j < width; j++) {
+				  char pixel = src[index];
+				  ((uchar*)(dst->imageData + i * dst->widthStep))[j] = pixel;
+				  index++;
+			  }
+		  }
+	  }
+	  return dst;
   }
 };
 #endif /* IMG_TOOLS_ */

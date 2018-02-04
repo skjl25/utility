@@ -24,6 +24,8 @@ DEALINGS IN THE SOFTWARE.
 */
 
 #include "../inc/img_tools.h"
+
+
 void ImageTools::saveSequenceOfIplImages(char* filelocation, int num_sequence,
                                            IplImage* foregroundImg) {
   char* fileName2 = new char[100];
@@ -350,7 +352,7 @@ char* ImageTools::load_pgm(string filename, unsigned int& width,
   return src;
 }
 
-void read_yuv(yuv_data* src, char* input_file_name) {
+void read_yuv(yuv_video* src, char* input_file_name) {
   FILE* pInpVideo;
   int nSize = src->width * src->height;
 
@@ -368,7 +370,7 @@ void read_yuv(yuv_data* src, char* input_file_name) {
 
 }
 
-void ImageTools::load_yuv_data(yuv_data* src, char* input_file_name, int num_frames,
+void ImageTools::load_yuv_data(yuv_video* src, char* input_file_name, int num_frames,
                                int pic_height, int pic_width) {
   src->num_frames = num_frames;
   src->height = pic_height;
@@ -393,7 +395,7 @@ void ImageTools::load_yuv_data(yuv_data* src, char* input_file_name, int num_fra
   read_yuv(src, input_file_name);
 }
 
-void ImageTools::write_yuv_data(yuv_data* src, char* output_file_name) {
+void ImageTools::write_yuv_data(yuv_video* src, char* output_file_name) {
   FILE *pTestOut;
   pTestOut = fopen(output_file_name, "w");
   int nSize = src->height* src->width;
